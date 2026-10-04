@@ -1,0 +1,20 @@
+{
+  "status": "DATA_ONLY_NO_MODEL",
+  "input_sha256": "660c3ec1fb18a02eaf3cde3ef0e7bd0b6cd211c9dea63c459c6f04b29047f5ee",
+  "full_dataset": {
+    "cases": 116,
+    "groups": 58,
+    "turns": 232,
+    "single_cases": 58,
+    "multi_cases": 58
+  },
+  "selected": {
+    "cases": 2,
+    "groups": 1,
+    "turns": 4,
+    "single_cases": 1,
+    "multi_cases": 1
+  },
+  "selected_group_id": "GOUT_ST_001",
+  "model_called": false
+}

@@ -1,0 +1,3 @@
+Ban dong goi v03 - C01-C02, 2026-10-04.
+Bo sung unit03_chat_engine.py, tests/test_chat_engine_c01_c02.py, README_C01_C02.md va notebook Colab C01-C02.
+Khong thay doi model/prompt/config cua buoc B; chua trien khai C03-C07 hay RAG.

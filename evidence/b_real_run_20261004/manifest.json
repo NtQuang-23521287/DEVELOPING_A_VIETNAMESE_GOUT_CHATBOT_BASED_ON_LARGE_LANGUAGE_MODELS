@@ -1,0 +1,46 @@
+{
+  "schema_version": "unit_b_0.2",
+  "started_at_utc": "2026-10-04T07:33:18.320590+00:00",
+  "status": "completed",
+  "model_load_attempted": true,
+  "generation_attempted": true,
+  "is_test_double": false,
+  "sample_id": "GOUT_ST_001__T1",
+  "model_config": {
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "revision": "main",
+    "device": "auto",
+    "max_input_tokens": 2048,
+    "max_new_tokens": 384,
+    "seed": 2026
+  },
+  "environment": {
+    "python": "3.13.15",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "transformers": "4.57.1",
+    "huggingface-hub": "0.36.2",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.22.2"
+  },
+  "questions_sha256": "3bfa6b67747e1582f4cf1459a09d90746803f605a996d15ca87214ad69ccd657",
+  "system_prompt_sha256": "56daf46398236c57808189eb975871d28ef6c2f00cdb584cf986203db59f1b70",
+  "code_sha256": "96ef1d49d9314565045814a8765198f5aeaebde04977afe4f51f064a889b46dd",
+  "data_code_sha256": "b2e95d5e952313b5c3aae638a1a92f240f32c716a61b4743be823aaa36246663",
+  "rag_enabled": false,
+  "reference_used": false,
+  "quality_evaluated": false,
+  "model_load_ms": 44880.834,
+  "backend_info": {
+    "backend": "huggingface",
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "resolved_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "device": "cuda",
+    "dtype": "torch.float16",
+    "is_test_double": false,
+    "chat_template_sha256": "2e2d2512cfe46af53dc1eed45368ecaab26ac4461c480e6b69fe571cf0ceaa75",
+    "gpu_name": "Tesla T4"
+  },
+  "finished_at_utc": "2026-10-04T07:34:19.501795+00:00",
+  "predictions_sha256": "68408d7a6646e65abfacf7a96f340ac59393f14946258621c25b631dcfa079f5"
+}

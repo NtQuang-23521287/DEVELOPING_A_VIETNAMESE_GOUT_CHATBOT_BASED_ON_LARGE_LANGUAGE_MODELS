@@ -1,0 +1,1122 @@
+{
+  "version": "1.1",
+  "updated_on": "2026-10-04",
+  "unit_count": 92,
+  "meaning_of_unit": "Một trách nhiệm có đầu vào, đầu ra và kiểm tra riêng; không chia thành từng cú pháp Python.",
+  "done_meaning": "done_technical: A đã kiểm tra. code_ready: code B đã viết nhưng chưa nghiệm thu model thật; không phải hoàn thành khoa học.",
+  "blocks": [
+    {
+      "id": "S",
+      "title": "Chốt phạm vi nghiên cứu",
+      "milestone": "Một trang mô tả đúng điều cần chứng minh",
+      "units": [
+        {
+          "id": "S01",
+          "action": "Viết một câu mô tả người dùng mục tiêu",
+          "depends_on": [],
+          "input": "Đề cương",
+          "output": "Một câu về đối tượng dùng",
+          "acceptance": "Không trộn chatbot giáo dục người bệnh với công cụ kê đơn cho bác sĩ.",
+          "status": "planned"
+        },
+        {
+          "id": "S02",
+          "action": "Viết danh sách loại yêu cầu được trả lời",
+          "depends_on": [
+            "S01"
+          ],
+          "input": "Phạm vi đề tài",
+          "output": "Danh sách phạm vi",
+          "acceptance": "Mỗi loại có một câu hỏi minh họa.",
+          "status": "planned"
+        },
+        {
+          "id": "S03",
+          "action": "Viết danh sách loại yêu cầu cần hỏi lại hoặc giới hạn trả lời",
+          "depends_on": [
+            "S01"
+          ],
+          "input": "Phạm vi đề tài",
+          "output": "Danh sách tình huống giới hạn",
+          "acceptance": "Mỗi loại có hành vi mong đợi; chưa tự gán nhãn đúng y khoa.",
+          "status": "planned"
+        },
+        {
+          "id": "S04",
+          "action": "Viết một giả thuyết so sánh",
+          "depends_on": [
+            "S02",
+            "S03"
+          ],
+          "input": "Mục tiêu khóa luận",
+          "output": "Một giả thuyết",
+          "acceptance": "Nêu rõ hai cấu hình cần so sánh và biến thay đổi.",
+          "status": "planned"
+        },
+        {
+          "id": "S05",
+          "action": "Chép nguyên tên chín tiêu chí từ đề cương",
+          "depends_on": [
+            "S04"
+          ],
+          "input": "Bản đề cương đã chốt",
+          "output": "Danh mục tiêu chí",
+          "acceptance": "Không tự thay bằng chín tiêu chí khác hoặc tự đặt trọng số.",
+          "status": "planned"
+        },
+        {
+          "id": "S06",
+          "action": "Ghi môi trường tính toán thực tế",
+          "depends_on": [],
+          "input": "Máy dự định dùng",
+          "output": "machine_profile.json",
+          "acceptance": "Có OS, RAM, GPU/VRAM hoặc ghi CPU; có nơi dự định chạy model.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "A",
+      "title": "Đọc một nhóm câu hỏi",
+      "milestone": "Một nhóm → hai case → bốn lượt; chưa gọi model",
+      "units": [
+        {
+          "id": "A01",
+          "action": "Đọc file UTF-8",
+          "depends_on": [],
+          "input": "inputs.jsonl",
+          "output": "Chuỗi văn bản",
+          "acceptance": "Đọc được tiếng Việt và BOM; file không tồn tại phải báo lỗi.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A02",
+          "action": "Giải mã từng dòng JSON",
+          "depends_on": [
+            "A01"
+          ],
+          "input": "Chuỗi văn bản",
+          "output": "Danh sách object",
+          "acceptance": "JSON lỗi phải chỉ đúng số dòng; file rỗng bị từ chối.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A03",
+          "action": "Kiểm tra không có trường đáp án",
+          "depends_on": [
+            "A02"
+          ],
+          "input": "Danh sách object",
+          "output": "Dữ liệu qua kiểm tra",
+          "acceptance": "Phát hiện cả ground_truth nằm bên trong turns; không đọc file reference.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A04",
+          "action": "Kiểm tra định danh bản ghi",
+          "depends_on": [
+            "A03"
+          ],
+          "input": "Một bản ghi",
+          "output": "case_id, group_id hợp lệ",
+          "acceptance": "ID không rỗng, không chứa khoảng trắng; category có giá trị.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A05",
+          "action": "Kiểm tra và chuẩn hóa các lượt",
+          "depends_on": [
+            "A04"
+          ],
+          "input": "Một case",
+          "output": "Case chỉ chứa trường được phép",
+          "acceptance": "Giữ nguyên câu hỏi; turn_id liên tục; single có 1 lượt, multi có ≥2.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A06",
+          "action": "Phát hiện case_id trùng",
+          "depends_on": [
+            "A05"
+          ],
+          "input": "Danh sách case",
+          "output": "Danh sách không trùng ID",
+          "acceptance": "Thêm một case trùng phải làm kiểm tra thất bại.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A07",
+          "action": "Gom case theo group_id",
+          "depends_on": [
+            "A06"
+          ],
+          "input": "Danh sách case",
+          "output": "Bảng nhóm → case",
+          "acceptance": "Không mất hoặc nhân đôi case khi gom.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A08",
+          "action": "Kiểm tra liên kết ST/MT",
+          "depends_on": [
+            "A07"
+          ],
+          "input": "Một nhóm kế thừa",
+          "output": "Nhóm hợp lệ",
+          "acceptance": "Có đúng một single và một multi; cùng câu mở đầu và category.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A09",
+          "action": "Chọn một nhóm theo ID",
+          "depends_on": [
+            "A08"
+          ],
+          "input": "Bảng nhóm và group_id",
+          "output": "Hai case của một nhóm",
+          "acceptance": "Không lấy lẻ ST hoặc MT; ID không tồn tại phải báo lỗi.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A10",
+          "action": "Xuất từng lượt câu hỏi",
+          "depends_on": [
+            "A09"
+          ],
+          "input": "Hai case",
+          "output": "Bốn bản ghi lượt",
+          "acceptance": "Mỗi lượt giữ sample_id/case_id/group_id; không thêm đáp án hay history giả.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A11",
+          "action": "Đếm case, nhóm và lượt",
+          "depends_on": [
+            "A08"
+          ],
+          "input": "Tập đầy đủ hoặc nhóm chọn",
+          "output": "Bảng số lượng",
+          "acceptance": "Tập hiện tại: 116/58/232; nhóm đầu: 2/1/4.",
+          "status": "done_technical"
+        },
+        {
+          "id": "A12",
+          "action": "Lưu kết quả vào thư mục mới",
+          "depends_on": [
+            "A10",
+            "A11"
+          ],
+          "input": "Câu hỏi và bản tóm tắt",
+          "output": "questions.jsonl + manifest.json",
+          "acceptance": "Có checksum đầu vào; không ghi đè output cũ; model_called=false.",
+          "status": "done_technical"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "Một câu hỏi → một model → một câu trả lời",
+      "milestone": "Mốc chạy xuyên suốt nhỏ nhất, chưa có RAG",
+      "units": [
+        {
+          "id": "B01",
+          "action": "Chọn một backend chạy thử",
+          "depends_on": [
+            "S06"
+          ],
+          "input": "Thông tin máy và model có thể dùng",
+          "output": "Một lựa chọn backend",
+          "acceptance": "Chốt một đường chạy trước: local Transformers hoặc endpoint đang có.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B02",
+          "action": "Ghi định danh model",
+          "depends_on": [
+            "B01"
+          ],
+          "input": "Model đã chọn",
+          "output": "Model ID + revision/checkpoint",
+          "acceptance": "Truy ra được trọng số nào đã dùng; không dùng tên mẫu REPLACE.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B03",
+          "action": "Viết system prompt bản đầu",
+          "depends_on": [
+            "S02",
+            "S03"
+          ],
+          "input": "Phạm vi chatbot",
+          "output": "system_vi_v1.txt",
+          "acceptance": "Nêu vai trò, giới hạn, cách xử lý thiếu thông tin; không chứa đáp án test.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B04",
+          "action": "Tạo messages cho một câu",
+          "depends_on": [
+            "A10",
+            "B03"
+          ],
+          "input": "Một user question",
+          "output": "Một system + một user message",
+          "acceptance": "Nội dung câu hỏi giữ nguyên; không nhận reference hoặc nhãn category làm gợi ý.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B05",
+          "action": "Khởi tạo một kết nối hoặc nạp một model",
+          "depends_on": [
+            "B02"
+          ],
+          "input": "Cấu hình backend",
+          "output": "Đối tượng model dùng lại",
+          "acceptance": "Lỗi cấu hình được báo rõ; model local không nạp lại mỗi câu.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B06",
+          "action": "Sinh một câu trả lời",
+          "depends_on": [
+            "B04",
+            "B05"
+          ],
+          "input": "Messages",
+          "output": "Văn bản model trả về",
+          "acceptance": "Không rỗng; đầu ra thật; API lỗi không thay bằng câu giả lập.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B07",
+          "action": "Ghi một bản kết quả",
+          "depends_on": [
+            "B06"
+          ],
+          "input": "Câu hỏi, câu trả lời và thời gian",
+          "output": "Một dòng predictions.jsonl",
+          "acceptance": "Có sample_id, cấu hình sinh, trạng thái; giữ nguyên đầu ra model.",
+          "status": "done",
+          "evidence": "unit02_model.py; tests/test_model_step.py; README_BUOC_B.md"
+        },
+        {
+          "id": "B08",
+          "action": "Đọc và rà soát thủ công một đầu ra",
+          "depends_on": [
+            "B07"
+          ],
+          "input": "Một prediction",
+          "output": "Ghi chú kiểm tra",
+          "acceptance": "Xác nhận đúng câu hỏi; chưa kết luận chất lượng toàn mô hình.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Ghép chat_engine và hội thoại",
+      "milestone": "Một hàm chung dùng cho chatbot và đánh giá",
+      "units": [
+        {
+          "id": "C01",
+          "action": "Định nghĩa đầu vào/đầu ra của chat_engine",
+          "depends_on": [
+            "B07"
+          ],
+          "input": "Luồng một câu đã chạy",
+          "output": "Chữ ký chat(question, history, contexts)",
+          "acceptance": "Không có tham số reference; trả answer, nguồn và thông tin lần gọi.",
+          "status": "done"
+        },
+        {
+          "id": "C02",
+          "action": "Đóng gói luồng một câu vào chat_engine",
+          "depends_on": [
+            "C01"
+          ],
+          "input": "Hàm đã có ở B",
+          "output": "Hàm gọi được từ Python",
+          "acceptance": "Cùng đầu vào đi qua cùng logic tạo prompt và sinh câu trả lời.",
+          "status": "done"
+        },
+        {
+          "id": "C03",
+          "action": "Tạo lịch sử rỗng cho hội thoại mới",
+          "depends_on": [
+            "C02"
+          ],
+          "input": "Một case",
+          "output": "history=[]",
+          "acceptance": "Case mới không mang câu trả lời từ case trước.",
+          "status": "done"
+        },
+        {
+          "id": "C04",
+          "action": "Thêm một cặp user/assistant vào lịch sử",
+          "depends_on": [
+            "C03"
+          ],
+          "input": "Câu hỏi và câu trả lời thực",
+          "output": "Lịch sử sau một lượt",
+          "acceptance": "Không dùng đáp án chuẩn thay câu trả lời model; lỗi không được thêm thành lượt thành công.",
+          "status": "done"
+        },
+        {
+          "id": "C05",
+          "action": "Gọi lượt kế tiếp với lịch sử",
+          "depends_on": [
+            "C04"
+          ],
+          "input": "History và câu hỏi tiếp theo",
+          "output": "Câu trả lời lượt tiếp theo",
+          "acceptance": "Lượt 2 thực sự nhìn thấy output lượt 1; không nối dữ liệu của case khác.",
+          "status": "done"
+        },
+        {
+          "id": "C06",
+          "action": "Kiểm tra giới hạn độ dài đầu vào",
+          "depends_on": [
+            "C05"
+          ],
+          "input": "Messages và tokenizer/backend limit",
+          "output": "Số token hoặc lỗi có ghi nhận",
+          "acceptance": "Không âm thầm bỏ câu hỏi cuối hay system prompt; chính sách vượt giới hạn phải được ghi.",
+          "status": "done"
+        },
+        {
+          "id": "C07",
+          "action": "Chạy một hội thoại ba lượt",
+          "depends_on": [
+            "C06",
+            "A09"
+          ],
+          "input": "Case MT đã chọn",
+          "output": "Ba predictions có thứ tự",
+          "acceptance": "Nếu một lượt lỗi, các lượt phụ thuộc được đánh dấu skipped; không tính là thành công.",
+          "status": "next"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Thêm RAG từng phần",
+      "milestone": "Một câu hỏi → bằng chứng có nguồn → câu trả lời",
+      "units": [
+        {
+          "id": "D01",
+          "action": "Lập bản ghi nguồn cho một tài liệu",
+          "depends_on": [],
+          "input": "PDF/TXT/bài RAG kế thừa",
+          "output": "source_registry entry",
+          "acceptance": "Có tên, phiên bản nếu biết, nguồn, đường dẫn, checksum và trạng thái duyệt.",
+          "status": "done_technical_real_source"
+        },
+        {
+          "id": "D02",
+          "action": "Duyệt một nguồn cho phạm vi đề tài",
+          "depends_on": [
+            "D01",
+            "S02"
+          ],
+          "input": "Tài liệu và xuất xứ",
+          "output": "Quyết định nguồn kèm người duyệt",
+          "acceptance": "Không tự coi tài liệu cũ là hướng dẫn y khoa hiện hành; giữ nguồn chưa duyệt riêng.",
+          "status": "done_source_scope_currentness_pending"
+        },
+        {
+          "id": "D03",
+          "action": "Trích văn bản của một tài liệu",
+          "depends_on": [
+            "D02"
+          ],
+          "input": "File gốc",
+          "output": "Văn bản có trang/mục khi có",
+          "acceptance": "Đối chiếu một đoạn với gốc; không bịa số trang khi nguồn không có.",
+          "status": "planned"
+        },
+        {
+          "id": "D04",
+          "action": "Làm sạch một loại nhiễu",
+          "depends_on": [
+            "D03"
+          ],
+          "input": "Văn bản trích xuất",
+          "output": "Văn bản sạch + quy tắc",
+          "acceptance": "Ví dụ bỏ header lặp; không làm mất số, đơn vị hoặc phủ định.",
+          "status": "planned"
+        },
+        {
+          "id": "D05",
+          "action": "Chia một mục tài liệu thành các đoạn",
+          "depends_on": [
+            "D04"
+          ],
+          "input": "Một mục văn bản",
+          "output": "Danh sách chunk",
+          "acceptance": "Không mất đoạn; mỗi chunk còn source_id và vị trí gốc.",
+          "status": "planned"
+        },
+        {
+          "id": "D06",
+          "action": "Gán ID ổn định cho một đoạn",
+          "depends_on": [
+            "D05"
+          ],
+          "input": "Nội dung và phiên bản nguồn",
+          "output": "chunk_id",
+          "acceptance": "Cùng dữ liệu/quy tắc cho cùng ID; nguồn đổi phải truy vết được.",
+          "status": "planned"
+        },
+        {
+          "id": "D07",
+          "action": "Tạo vector cho một đoạn",
+          "depends_on": [
+            "D06"
+          ],
+          "input": "Một chunk + embedding config",
+          "output": "Một vector",
+          "acceptance": "Ghi đúng embedding/revision, tiền tố, chuẩn hóa và số chiều.",
+          "status": "planned"
+        },
+        {
+          "id": "D08",
+          "action": "Xây index và bảng metadata",
+          "depends_on": [
+            "D07"
+          ],
+          "input": "Các vector và chunk",
+          "output": "index.faiss + metadata",
+          "acceptance": "Số vector khớp số ID; thử đọc lại và kiểm tra ánh xạ.",
+          "status": "planned"
+        },
+        {
+          "id": "D09",
+          "action": "Tạo vector cho một query",
+          "depends_on": [
+            "D07",
+            "A10"
+          ],
+          "input": "Câu hỏi",
+          "output": "Query vector",
+          "acceptance": "Cùng embedding và quy ước với index; không trộn hai model embedding.",
+          "status": "planned"
+        },
+        {
+          "id": "D10",
+          "action": "Lấy top-k đoạn cho một query",
+          "depends_on": [
+            "D08",
+            "D09"
+          ],
+          "input": "Query vector + index",
+          "output": "Danh sách chunk có thứ tự",
+          "acceptance": "Không có ID âm/ngoài bảng; xem thủ công đoạn có liên quan không.",
+          "status": "planned"
+        },
+        {
+          "id": "D11",
+          "action": "Đưa bằng chứng vào chat_engine",
+          "depends_on": [
+            "D10",
+            "C02"
+          ],
+          "input": "Câu hỏi + các chunk",
+          "output": "Messages chứa bằng chứng",
+          "acceptance": "Có ranh giới tài liệu/câu hỏi, trích ID; tài liệu được xử lý như dữ liệu.",
+          "status": "planned"
+        },
+        {
+          "id": "D12",
+          "action": "Kiểm tra ID nguồn trong một câu trả lời",
+          "depends_on": [
+            "D11"
+          ],
+          "input": "Output + ID đã cung cấp",
+          "output": "Danh sách ID hợp lệ/không hợp lệ",
+          "acceptance": "ID tồn tại chỉ là kiểm tra cấu trúc, không phải kết luận nguồn hỗ trợ phát biểu.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "title": "Đánh giá baseline và tuyển chọn model",
+      "milestone": "Một run có dữ liệu, câu trả lời, điểm và lỗi truy vết được",
+      "units": [
+        {
+          "id": "E01",
+          "action": "Chuẩn hóa một đáp án tham chiếu",
+          "depends_on": [
+            "S05"
+          ],
+          "input": "Reference kế thừa",
+          "output": "Một nhãn chờ duyệt",
+          "acceptance": "Giữ sample_id và nguồn; tách hoàn toàn khỏi file đưa cho model.",
+          "status": "planned"
+        },
+        {
+          "id": "E02",
+          "action": "Duyệt một đáp án tham chiếu",
+          "depends_on": [
+            "E01"
+          ],
+          "input": "Nhãn + tài liệu chứng cứ",
+          "output": "Quyết định và bằng chứng",
+          "acceptance": "Có người duyệt/trạng thái; điểm chưa duyệt không được trình bày như chuẩn y khoa.",
+          "status": "planned"
+        },
+        {
+          "id": "E03",
+          "action": "Viết rubric cho một tiêu chí",
+          "depends_on": [
+            "S05"
+          ],
+          "input": "Tên một tiêu chí",
+          "output": "Thang điểm và ví dụ",
+          "acceptance": "Có điều kiện áp dụng, giá trị N/A và cách xử lý thiếu dữ liệu; lặp cho các tiêu chí.",
+          "status": "planned"
+        },
+        {
+          "id": "E04",
+          "action": "Khóa tập câu hỏi của một run",
+          "depends_on": [
+            "A08",
+            "S04"
+          ],
+          "input": "Nhóm được chọn",
+          "output": "Danh sách case + checksum",
+          "acceptance": "Giữ ST/MT cùng nhóm; ghi rõ benchmark kế thừa và lịch sử sử dụng.",
+          "status": "planned"
+        },
+        {
+          "id": "E05",
+          "action": "Khóa chính sách truy xuất của một run",
+          "depends_on": [
+            "D10",
+            "E04"
+          ],
+          "input": "Query policy và KB",
+          "output": "Context snapshot/config có phiên bản",
+          "acceptance": "Không dùng reference để truy xuất; so sánh model phải giữ điều kiện truy xuất tương đương.",
+          "status": "planned"
+        },
+        {
+          "id": "E06",
+          "action": "Chạy một case qua engine và ghi kết quả",
+          "depends_on": [
+            "C07",
+            "D11",
+            "E05"
+          ],
+          "input": "Case đã khóa",
+          "output": "Prediction từng lượt",
+          "acceptance": "Reset history giữa case; chụp cấu hình/code/prompt/KB của lần chạy.",
+          "status": "planned"
+        },
+        {
+          "id": "E07",
+          "action": "Ghi nhận một lỗi thực thi",
+          "depends_on": [
+            "E06"
+          ],
+          "input": "Lỗi backend hoặc retrieval",
+          "output": "Error/skipped record",
+          "acceptance": "Không xóa khỏi mẫu số và không biến lỗi thành điểm 0 hoặc câu trả lời hợp lệ.",
+          "status": "planned"
+        },
+        {
+          "id": "E08",
+          "action": "Chấm một đầu ra theo một tiêu chí",
+          "depends_on": [
+            "E02",
+            "E03",
+            "E06"
+          ],
+          "input": "Prediction + nhãn + rubric",
+          "output": "Điểm + lý do + nguồn chấm",
+          "acceptance": "Chấm sau sinh; người chấm hoặc judge có cấu hình/phiên bản.",
+          "status": "planned"
+        },
+        {
+          "id": "E09",
+          "action": "Kiểm tra cấu trúc một kết quả chấm",
+          "depends_on": [
+            "E08"
+          ],
+          "input": "Score record",
+          "output": "Điểm hợp lệ hoặc lỗi",
+          "acceptance": "Loại điểm ngoài thang, JSON sai, thiếu lý do; giữ N/A riêng.",
+          "status": "planned"
+        },
+        {
+          "id": "E10",
+          "action": "Đối chiếu judge với người chấm trên mẫu đã chọn",
+          "depends_on": [
+            "E09"
+          ],
+          "input": "Điểm judge và điểm người",
+          "output": "Báo cáo bất đồng",
+          "acceptance": "Hiệu chuẩn trên dev; không mặc định judge đúng; ghi mẫu và phương pháp đối chiếu.",
+          "status": "planned"
+        },
+        {
+          "id": "E11",
+          "action": "Tổng hợp một chỉ số",
+          "depends_on": [
+            "E09"
+          ],
+          "input": "Scores và predictions",
+          "output": "Một thống kê kèm mẫu số",
+          "acceptance": "Tách single/multi; nêu số thiếu; giữ đơn vị nhóm khi tính thống kê.",
+          "status": "planned"
+        },
+        {
+          "id": "E12",
+          "action": "Tạo một báo cáo run",
+          "depends_on": [
+            "E07",
+            "E10",
+            "E11"
+          ],
+          "input": "Kết quả chi tiết",
+          "output": "report.md + summary.json",
+          "acceptance": "Có lỗi, độ phủ chấm và cấu hình; không chỉ một con số trung bình.",
+          "status": "planned"
+        },
+        {
+          "id": "E13",
+          "action": "Ghi một run vào MLflow",
+          "depends_on": [
+            "E12"
+          ],
+          "input": "Config, metrics, artifact",
+          "output": "Run có ID",
+          "acceptance": "Mở lại truy ra prediction tương ứng; Colab có thể nhập gói kết quả sau.",
+          "status": "planned"
+        },
+        {
+          "id": "E14",
+          "action": "So sánh hai cấu hình theo một giả thuyết",
+          "depends_on": [
+            "E12",
+            "S04"
+          ],
+          "input": "Hai run tương đương",
+          "output": "Bảng so sánh theo cặp",
+          "acceptance": "Giữ KB/test/rubric ổn định; dùng 58 nhóm, không giả định 232 lượt độc lập.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "title": "SFT sau baseline",
+      "milestone": "Một adapter nạp lại được và có báo cáo trên dev",
+      "units": [
+        {
+          "id": "F01",
+          "action": "Chọn model nền từ baseline",
+          "depends_on": [
+            "E14"
+          ],
+          "input": "Kết quả chất lượng/tài nguyên",
+          "output": "Model/revision được chọn",
+          "acceptance": "Có lý do chọn theo tiêu chí nghiên cứu, không chỉ vì model mới.",
+          "status": "planned"
+        },
+        {
+          "id": "F02",
+          "action": "Kiểm tra một cặp SFT kế thừa",
+          "depends_on": [
+            "F01"
+          ],
+          "input": "Một trong 246 cặp ứng viên",
+          "output": "Cặp được duyệt hoặc trả lại",
+          "acceptance": "Không tự dùng đáp án chép toàn bài RAG; có nguồn/quyết định duyệt.",
+          "status": "planned"
+        },
+        {
+          "id": "F03",
+          "action": "Gán vai trò train/dev theo nhóm gốc",
+          "depends_on": [
+            "F02",
+            "E04"
+          ],
+          "input": "Nhóm dữ liệu",
+          "output": "Split manifest",
+          "acceptance": "Nhóm liên quan không sang cả train và eval; ghi giới hạn kiểm tra trùng ngữ nghĩa.",
+          "status": "planned"
+        },
+        {
+          "id": "F04",
+          "action": "Tokenize một cặp bằng chat template",
+          "depends_on": [
+            "F03"
+          ],
+          "input": "Cặp SFT + tokenizer model nền",
+          "output": "Một training example",
+          "acceptance": "Xem lại phần user/assistant; không dùng template sai model.",
+          "status": "planned"
+        },
+        {
+          "id": "F05",
+          "action": "Kiểm tra mask loss của một mẫu",
+          "depends_on": [
+            "F04"
+          ],
+          "input": "Tokenized example",
+          "output": "Mask/labels đã kiểm tra",
+          "acceptance": "Đúng vùng cần học; không tạo loss trên toàn bộ câu hỏi do lỗi cấu hình.",
+          "status": "planned"
+        },
+        {
+          "id": "F06",
+          "action": "Chạy vài bước huấn luyện thử",
+          "depends_on": [
+            "F05",
+            "S06"
+          ],
+          "input": "Mẫu train + config QLoRA",
+          "output": "Loss và bộ nhớ thử",
+          "acceptance": "Không OOM; loss hữu hạn; xác định tham số nào được cập nhật.",
+          "status": "planned"
+        },
+        {
+          "id": "F07",
+          "action": "Lưu một checkpoint SFT",
+          "depends_on": [
+            "F06"
+          ],
+          "input": "Trạng thái huấn luyện",
+          "output": "Adapter/checkpoint + config",
+          "acceptance": "Checkpoint là bản thử hoặc bản đầy đủ phải ghi rõ; có model nền/tokenizer.",
+          "status": "planned"
+        },
+        {
+          "id": "F08",
+          "action": "Nạp lại checkpoint trong tiến trình mới",
+          "depends_on": [
+            "F07"
+          ],
+          "input": "Adapter và model nền",
+          "output": "Một câu trả lời",
+          "acceptance": "Không phụ thuộc trạng thái RAM phiên train; checkpoint tương ứng đúng model nền.",
+          "status": "planned"
+        },
+        {
+          "id": "F09",
+          "action": "Đánh giá SFT bằng luồng baseline",
+          "depends_on": [
+            "F08",
+            "E12"
+          ],
+          "input": "Ứng viên SFT + dev",
+          "output": "Báo cáo SFT vs baseline",
+          "acceptance": "Không dùng test cuối để chọn checkpoint; bản kém hơn không tự thay baseline.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "title": "Preference và DPO",
+      "milestone": "Một ứng viên DPO có thể so sánh lại với SFT",
+      "units": [
+        {
+          "id": "G01",
+          "action": "Chọn một prompt thuộc tập train",
+          "depends_on": [
+            "F09"
+          ],
+          "input": "Train case + context",
+          "output": "Prompt có lịch sử/KB cố định",
+          "acceptance": "Không lấy prompt từ tập test cuối; giữ đúng context sẽ đưa vào trainer.",
+          "status": "planned"
+        },
+        {
+          "id": "G02",
+          "action": "Sinh một ứng viên cho prompt",
+          "depends_on": [
+            "G01"
+          ],
+          "input": "Mô hình SFT + seed/config",
+          "output": "Một câu trả lời ứng viên",
+          "acceptance": "Lưu prompt/context/seed; lặp để có nhiều ứng viên khác nhau.",
+          "status": "planned"
+        },
+        {
+          "id": "G03",
+          "action": "Chấm một ứng viên theo rubric",
+          "depends_on": [
+            "G02",
+            "E03"
+          ],
+          "input": "Ứng viên + rubric",
+          "output": "Điểm có lý do",
+          "acceptance": "Phát hiện nhãn không chắc; không tự coi heuristic là chuẩn y khoa.",
+          "status": "planned"
+        },
+        {
+          "id": "G04",
+          "action": "Tạo một cặp chosen/rejected",
+          "depends_on": [
+            "G03"
+          ],
+          "input": "Hai ứng viên có phân biệt",
+          "output": "Một preference pair",
+          "acceptance": "Chosen và rejected khác nhau; giữ nguyên prompt và lý do chọn.",
+          "status": "planned"
+        },
+        {
+          "id": "G05",
+          "action": "Duyệt một cặp preference",
+          "depends_on": [
+            "G04"
+          ],
+          "input": "Preference pair",
+          "output": "Cặp duyệt hoặc loại",
+          "acceptance": "Bỏ cặp hòa điểm/nhãn không đáng tin; lưu trạng thái người duyệt.",
+          "status": "planned"
+        },
+        {
+          "id": "G06",
+          "action": "Xác minh reference policy của DPO",
+          "depends_on": [
+            "G05",
+            "F08"
+          ],
+          "input": "Checkpoint SFT + trainer config",
+          "output": "Bản ghi reference đúng phiên bản",
+          "acceptance": "Reference phải tương ứng SFT dự định; phân biệt model nền với adapter SFT.",
+          "status": "planned"
+        },
+        {
+          "id": "G07",
+          "action": "Chạy vài bước DPO thử",
+          "depends_on": [
+            "G06"
+          ],
+          "input": "Cặp preference đã duyệt",
+          "output": "Loss/log/bộ nhớ thử",
+          "acceptance": "Chạy được và kiểm tra train/reference đúng; ghi rõ đây là smoke training.",
+          "status": "planned"
+        },
+        {
+          "id": "G08",
+          "action": "Lưu một checkpoint DPO",
+          "depends_on": [
+            "G07"
+          ],
+          "input": "Trạng thái train",
+          "output": "Checkpoint DPO + cấu hình",
+          "acceptance": "Ghi model nền và cấu hình; không ghi đè bản SFT.",
+          "status": "planned"
+        },
+        {
+          "id": "G09",
+          "action": "Nạp lại checkpoint DPO trong tiến trình mới",
+          "depends_on": [
+            "G08"
+          ],
+          "input": "Checkpoint và model nền",
+          "output": "Một câu trả lời từ DPO",
+          "acceptance": "Không phụ thuộc RAM phiên train; xác nhận đủ trọng số/adapter cần thiết.",
+          "status": "planned"
+        },
+        {
+          "id": "G10",
+          "action": "Đánh giá DPO trên dev",
+          "depends_on": [
+            "G09",
+            "E12"
+          ],
+          "input": "Ứng viên DPO",
+          "output": "Bảng DPO vs SFT vs baseline",
+          "acceptance": "Đánh giá cùng engine; giữ bản tốt nhất theo tiêu chí, DPO có thể không cải thiện.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "H",
+      "title": "Nghiệm thu và demo",
+      "milestone": "Một chatbot dùng đúng cấu hình đã được đánh giá",
+      "units": [
+        {
+          "id": "H01",
+          "action": "Lập bộ test cuối được quản lý riêng",
+          "depends_on": [
+            "E02",
+            "F03"
+          ],
+          "input": "Thiết kế nghiên cứu và tình huống mới",
+          "output": "Test manifest độc lập phù hợp",
+          "acceptance": "Không tái dùng benchmark cũ dưới tên unseen; không dùng test cuối để chọn tham số.",
+          "status": "planned"
+        },
+        {
+          "id": "H02",
+          "action": "Khóa một ứng viên phát hành",
+          "depends_on": [
+            "G10",
+            "E14"
+          ],
+          "input": "Kết quả các ứng viên",
+          "output": "Release manifest",
+          "acceptance": "Khóa model/adapter, prompt, KB, retriever và chính sách; chọn baseline/SFT/DPO theo kết quả.",
+          "status": "planned"
+        },
+        {
+          "id": "H03",
+          "action": "Chạy nghiệm thu cấu hình đã khóa",
+          "depends_on": [
+            "H01",
+            "H02",
+            "E12"
+          ],
+          "input": "Ứng viên + test cuối",
+          "output": "Báo cáo nghiệm thu",
+          "acceptance": "Chạy sau khi ngừng chọn tham số; thất bại thì ghi nhận, quy định lại vòng nghiên cứu.",
+          "status": "planned"
+        },
+        {
+          "id": "H04",
+          "action": "Viết một endpoint gọi chat_engine",
+          "depends_on": [
+            "H03",
+            "C02"
+          ],
+          "input": "Request câu hỏi + session",
+          "output": "Response cấu trúc",
+          "acceptance": "Dùng đúng engine/config đã đánh giá; lỗi trả trạng thái rõ.",
+          "status": "planned"
+        },
+        {
+          "id": "H05",
+          "action": "Viết một ô chat gọi endpoint",
+          "depends_on": [
+            "H04"
+          ],
+          "input": "Câu hỏi người dùng",
+          "output": "Hiển thị answer + nguồn",
+          "acceptance": "Một câu đi từ UI đến engine và hiện đúng kết quả.",
+          "status": "planned"
+        },
+        {
+          "id": "H06",
+          "action": "Tách history giữa hai phiên người dùng",
+          "depends_on": [
+            "H05",
+            "C03"
+          ],
+          "input": "Hai session",
+          "output": "Hai lịch sử riêng",
+          "acceptance": "Câu từ phiên A không xuất hiện trong phiên B.",
+          "status": "planned"
+        },
+        {
+          "id": "H07",
+          "action": "Đóng gói bản demo có thể khởi động lại",
+          "depends_on": [
+            "H06"
+          ],
+          "input": "Code và cấu hình đã khóa",
+          "output": "Hướng dẫn chạy + artifact",
+          "acceptance": "Khởi động lại vẫn nạp đúng model/KB; không coi Colab là dịch vụ luôn chạy.",
+          "status": "planned"
+        },
+        {
+          "id": "H08",
+          "action": "Ghi một phản hồi và liên kết với run",
+          "depends_on": [
+            "H07"
+          ],
+          "input": "Phản hồi thử nghiệm",
+          "output": "Bản ghi đã giảm dữ liệu cá nhân",
+          "acceptance": "Truy ra phiên bản; phản hồi không tự trở thành dữ liệu train đã duyệt.",
+          "status": "planned"
+        },
+        {
+          "id": "H09",
+          "action": "Thử quay về phiên bản trước",
+          "depends_on": [
+            "H07"
+          ],
+          "input": "Hai release có manifest",
+          "output": "Lần rollback thử",
+          "acceptance": "Phục hồi đồng bộ model, prompt và KB; không chỉ đổi trọng số.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "R",
+      "title": "Ghi chép và tái lập song song",
+      "milestone": "Bằng chứng đủ để viết báo cáo khóa luận",
+      "units": [
+        {
+          "id": "R01",
+          "action": "Lưu một phiên bản code bằng Git",
+          "depends_on": [
+            "A12"
+          ],
+          "input": "Code đã kiểm tra",
+          "output": "Commit",
+          "acceptance": "Tái mở được đúng phiên bản; không ghi API key vào repo.",
+          "status": "planned"
+        },
+        {
+          "id": "R02",
+          "action": "Ghi dependency của một môi trường đã chạy",
+          "depends_on": [
+            "B08"
+          ],
+          "input": "Môi trường thực tế",
+          "output": "File khóa/phiên bản",
+          "acceptance": "Không tự chốt CUDA khi chưa biết GPU; phân biệt data/train/serve khi cần.",
+          "status": "planned"
+        },
+        {
+          "id": "R03",
+          "action": "Khai báo một stage DVC sau khi lệnh chạy ổn",
+          "depends_on": [
+            "E12",
+            "R01"
+          ],
+          "input": "Script + input/output/config",
+          "output": "Stage chạy lại được",
+          "acceptance": "Sửa đầu vào làm stage cần chạy lại; DVC không tự cấp GPU.",
+          "status": "planned"
+        },
+        {
+          "id": "R04",
+          "action": "Viết một đoạn phương pháp từ lần chạy thực",
+          "depends_on": [
+            "E12"
+          ],
+          "input": "Config và log",
+          "output": "Đoạn báo cáo + liên kết artifact",
+          "acceptance": "Mô tả việc đã làm; không viết thiết kế dự kiến như kết quả hoàn thành.",
+          "status": "planned"
+        },
+        {
+          "id": "R05",
+          "action": "Viết một phân tích lỗi từ mẫu cụ thể",
+          "depends_on": [
+            "E12"
+          ],
+          "input": "Một case lỗi",
+          "output": "Lỗi + bằng chứng + hướng sửa",
+          "acceptance": "Phân biệt lỗi dữ liệu, truy xuất, model, history hoặc bộ chấm.",
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

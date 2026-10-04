@@ -1,0 +1,4 @@
+Gout build C05-C06 v05
+C05: next turn consumes real history from the same multi-turn case.
+C06: tokenizer/backend preflight with reject_no_truncation; token budget logged.
+C07 and RAG are not implemented in this build.

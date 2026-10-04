@@ -1,0 +1,3 @@
+Ban dong goi v04 - C03-C04, 2026-10-04.
+Bo sung new_history(), append_turn(), tests/test_chat_engine_c03_c04.py, README_C03_C04.md va bang chung tu C02 that.
+C03-C04 chi tao/cap nhat history; chua dua history vao generation (C05) va chua lam RAG.

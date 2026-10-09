@@ -1,0 +1,33 @@
+name: gout_kb_v1
+output_dir: artifacts/kb/gout_kb_v1
+sources:
+  - source_id: moh_gout_guideline_local
+    path: data/raw/knowledge_base/gout_guideline_1.pdf
+    kind: pdf
+    tier: core
+    review_status: source_known_review_currentness_pending
+  - source_id: group1_web_corpus
+    path: data/raw/knowledge_base/Group1_RAG_Corpus.csv
+    kind: csv_articles
+    tier: supplementary
+    review_status: supplementary_not_clinical_gold
+    csv:
+      title_column: title
+      content_column: content
+      url_column: url
+chunking:
+  method: char_window_v1
+  chunk_chars: 700
+  overlap: 120
+embedding:
+  model_id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42
+  normalize_embeddings: true
+retrieval:
+  retrieve_k: 12
+  top_k: 3
+  query_policy: current_question_only
+reranker:
+  enabled: true
+  model_id: BAAI/bge-reranker-v2-m3
+  revision: 953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e

@@ -1,0 +1,16 @@
+name: dpo_v1
+status: scaffold
+base_model_or_adapter: checkpoints/sft_v1
+preference_data: data/processed/dpo/preference_v1.jsonl
+output_dir: checkpoints/dpo_v1
+seed: 2026
+candidate_generation:
+  k: 4
+preference_mining:
+  heuristic_version: heuristic_reward_v1
+trainer:
+  beta: 0.1
+  learning_rate: 0.000005
+  num_train_epochs: 1
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8

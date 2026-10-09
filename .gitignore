@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Secrets
+.env
+*.pem
+*.key
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# MLflow / runtime
+mlruns/
+*.log
+
+# Generated artifacts
+artifacts/runs/*
+artifacts/kb/*
+artifacts/reports/*
+!artifacts/**/.gitkeep
+
+# Processed/interim data are rebuilt/versioned with DVC
+data/interim/*
+data/processed/*
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Model checkpoints
+checkpoints/
+models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# DVC cache
+.dvc/cache/

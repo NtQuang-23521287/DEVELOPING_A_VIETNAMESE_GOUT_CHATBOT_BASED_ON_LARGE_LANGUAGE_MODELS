@@ -1,4 +1,0 @@
-{"case_id": "GOUT_ST_001", "group_id": "GOUT_ST_001", "scenario": "single", "category": "basic_knowledge", "sample_id": "GOUT_ST_001__T1", "turn_id": 1, "user": "Giai đoạn 1 của bệnh gút trên lâm sàng được gọi là gì và đặc điểm của nó?"}
-{"case_id": "GOUT_MT_001", "group_id": "GOUT_ST_001", "scenario": "multi", "category": "basic_knowledge", "sample_id": "GOUT_MT_001__T1", "turn_id": 1, "user": "Giai đoạn 1 của bệnh gút trên lâm sàng được gọi là gì và đặc điểm của nó?"}
-{"case_id": "GOUT_MT_001", "group_id": "GOUT_ST_001", "scenario": "multi", "category": "basic_knowledge", "sample_id": "GOUT_MT_001__T2", "turn_id": 2, "user": "Giải thích ý trên bằng ngôn ngữ dễ hiểu cho bệnh nhân, tránh dùng thuật ngữ chuyên môn quá nhiều."}
-{"case_id": "GOUT_MT_001", "group_id": "GOUT_ST_001", "scenario": "multi", "category": "basic_knowledge", "sample_id": "GOUT_MT_001__T3", "turn_id": 3, "user": "Vậy người bệnh nên hiểu điều này để làm gì trong việc theo dõi hoặc đi khám?"}

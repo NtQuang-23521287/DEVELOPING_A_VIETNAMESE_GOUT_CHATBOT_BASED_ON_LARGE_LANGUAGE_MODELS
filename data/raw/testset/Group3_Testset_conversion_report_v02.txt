@@ -1,0 +1,33 @@
+GROUP3 → CANDIDATE TESTSET v02
+================================
+
+Input sau cleaning: 116 dòng
+
+Sau bước chuyển đổi bảo thủ:
+- Chấp nhận: 76 source rows
+- Loại/đưa review: 40 source rows
+
+Phân chia tự nhiên theo lượng dữ kiện có trong source:
+- Single-turn: 49 cases = 49 lượt
+- Multi-turn: 27 conversations × 3 = 81 lượt
+- Tổng lượt benchmark: 130
+
+Không ép 100 single / 14 multi.
+
+Cách quyết định:
+- Nếu source chỉ đủ thông tin cho một câu độc lập → single-turn.
+- Chỉ source thuộc phạm vi primary có đủ >= 4 fact cấu trúc và >= 2 triệu chứng mới → multi-turn.
+- Một source_row_id chỉ dùng ở một mode, không xuất hiện đồng thời ở single và multi.
+- T2/T3 của multi dùng tham chiếu như “tình trạng này”, “vậy…” để thực sự kiểm tra history.
+- Không lấy dữ kiện chỉ xuất hiện trong câu hỏi của assistant (ví dụ “có sốt không?”) làm fact của bệnh nhân.
+- Không sinh ground truth ở bước này.
+
+Subsets:
+- primary: 62 cases
+- differential_ood (giả gout): 12 cases
+- safety_special_population: 2 cases
+
+Bước còn thiếu trước benchmark chính thức:
+1. Kiểm tra từng câu có được Knowledge Base hỗ trợ hay không.
+2. Tạo/duyệt reference từ KB.
+3. Tách điểm primary khỏi differential/OOD/special population khi báo cáo.

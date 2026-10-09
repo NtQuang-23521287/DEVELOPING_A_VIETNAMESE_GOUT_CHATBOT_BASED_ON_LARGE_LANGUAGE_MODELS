@@ -1,0 +1,26 @@
+{
+  "root": "data/raw/testset",
+  "file_count": 4,
+  "files": [
+    {
+      "path": "Group3_Testset_candidate_v02.csv",
+      "bytes": 28339,
+      "sha256": "2b6e40524e5a3cb770a47632e9067f961515bc7a31c7dadcb3f8d5bddafb0a88"
+    },
+    {
+      "path": "Group3_Testset_cases_v02.jsonl",
+      "bytes": 36499,
+      "sha256": "c4c71034bf77cba3bae3768ae98f08c56218ef486178c1d267227456d6d864fd"
+    },
+    {
+      "path": "Group3_Testset_conversion_audit_v01.csv",
+      "bytes": 87863,
+      "sha256": "2e8e0573dd385fda516f3ef4e0e3a8f84f5ba1681063db1e7bf54bc866f35ebf"
+    },
+    {
+      "path": "Group3_Testset_conversion_report_v02.txt",
+      "bytes": 1439,
+      "sha256": "60363424cac9d977477e63eaf50ba4d197768f7a0dbbb54a6a05ee9122ad864a"
+    }
+  ]
+}

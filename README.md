@@ -1,116 +1,170 @@
-# Gout LLMOps — xây từng phần nhỏ
+# Gout LLMOps
 
-## Trạng thái mới nhất: C01–C06
+Hệ thống LLMOps cho khóa luận **Chatbot tư vấn bệnh Gout tiếng Việt**. Repository này được thiết kế để dùng xuyên suốt từ xây dựng Knowledge Base, benchmark mô hình nền, SFT, DPO, đánh giá an toàn đến đóng gói API/UI.
 
-C05–C06 đã được triển khai trong `unit03_chat_engine.py`: lượt kế tiếp dùng history thật của cùng multi-turn case và input được preflight theo policy `reject_no_truncation`. Xem `README_C05_C06.md` và `notebooks/Gout_C05_C06_Colab.ipynb`. C07 chưa làm.
+> Trạng thái ban đầu: **LLMOps Foundation v1**. Chưa công bố model tốt nhất. Ba model baseline được cấu hình nhưng phải chạy trên cùng một protocol trước khi chọn.
 
+## 1. Nguyên tắc thiết kế
 
-> Cập nhật C03–C04: C02 đã được người dùng chạy inference thật qua `chat_engine`. C03 tạo history mới độc lập; C04 append đúng output thật của C02. Xem **README_C03_C04.md**.
+- **Một codebase, nhiều phase**: baseline, SFT và DPO dùng chung `ChatEngine`, RAG và Evaluation Harness.
+- **Config-driven**: đổi model/RAG/evaluation bằng YAML, không copy notebook.
+- **Reproducible**: mỗi run lưu model revision, Git commit, KB/testset checksum, prompt/config và seed.
+- **Không leakage**: reference/ground truth chỉ đi vào evaluator sau generation; không được dùng để retrieval hoặc prompt model.
+- **Multi-turn đúng nghĩa**: history của một case chỉ chứa câu hỏi và câu trả lời thật của model; reset giữa các case.
+- **Data lineage**: Git quản lý code/config; DVC quản lý data/index lớn; MLflow quản lý experiment/metrics/artifacts.
+- **Medical safety**: đánh giá chất lượng và rủi ro tách riêng; dữ liệu chưa được chuyên môn duyệt không được gọi là gold clinical reference.
 
-Bắt đầu ở đây. Bạn chưa cần biết cách SFT/DPO, chưa cần GPU hay cài thư viện Python ngoài.
+## 2. Mapping với đề cương khóa luận
 
-**Mục tiêu duy nhất của lần này:** đọc dữ liệu đã có và lấy đúng một nhóm gồm một câu đơn lượt và một hội thoại ba lượt. Kết quả là bốn lượt câu hỏi để sau này thử chatbot.
+| Đề cương | Trong repository |
+|---|---|
+| Giai đoạn 1 – Hạ tầng dữ liệu & khung đánh giá | `src/gout_llmops/data`, `rag`, `evaluation`, DVC, MLflow |
+| Giai đoạn 2 – Tuyển chọn mô hình nền | `scripts/run_baseline.py`, `configs/models/*` |
+| Giai đoạn 3 – SFT | `src/gout_llmops/training/sft.py`, `configs/training/sft_v1.yaml` |
+| Giai đoạn 4 – DPO | `src/gout_llmops/training/dpo.py`, `configs/training/dpo_v1.yaml` |
+| Giai đoạn 5 – Safe Inference & triển khai | `src/gout_llmops/safety`, `serving` |
 
-## Chạy trên Windows
-
-1. Giải nén gói.
-2. Mở Terminal trong thư mục `gout_units_v01` có file `unit01_data.py`.
-3. Kiểm tra Python:
-
-```powershell
-py --version
-```
-
-Cần Python 3.10 trở lên. Nếu máy dùng lệnh `python` thay cho `py`, thay toàn bộ `py` bằng `python`; trên Linux có thể dùng `python3`.
-
-4. Xem kết quả ngay, chưa ghi file:
-
-```powershell
-py unit01_data.py
-```
-
-5. Lưu kết quả:
-
-```powershell
-py unit01_data.py --out runs/unit01
-```
-
-Kết quả cần nhìn thấy:
+## 3. Cấu trúc
 
 ```text
-status: DATA_ONLY_NO_MODEL
-full_dataset: 116 cases, 58 groups, 232 turns
-selected: 2 cases, 1 group, 4 turns
-selected_group_id: GOUT_ST_001
-model_called: false
+configs/              cấu hình model, RAG, evaluation, training, safety
+data/raw/             nguồn bất biến/ít biến đổi; không ghi output vào đây
+data/processed/       chunks, normalized testsets
+artifacts/            outputs của build/run/report
+src/gout_llmops/      business logic chính
+scripts/              entrypoints CLI mỏng
+notebooks/            orchestration/phân tích, không chứa logic lõi
+prompts/              prompt có version
+rubrics/              rubric đánh giá 9 tiêu chí
+tests/                unit/integrity tests
+docs/                 architecture, protocol, versioning
 ```
 
-Đầu ra thật được in dưới dạng JSON, sau đó là bốn câu hỏi. Ví dụ đã kiểm tra nằm trong `examples/unit01/`.
+## 4. Dữ liệu được đóng gói trong bản khởi tạo
 
-## Hiểu bốn dòng đầu ra
+- `data/raw/knowledge_base/gout_guideline_1.pdf`: nguồn guideline lõi hiện có.
+- `data/raw/knowledge_base/Group1_RAG_Corpus.csv`: corpus web bổ sung; **không mặc định coi là nguồn lâm sàng chính thống**.
+- `data/raw/testset/Group3_Testset_cases_v02.jsonl`: candidate testset gồm single/multi-turn, trạng thái reference hiện là `pending_kb_alignment`.
+- `data/raw/testset/Group3_Testset_candidate_v02.csv`: dạng phẳng theo lượt để kiểm tra.
 
-| Dòng | Nội dung | Khi chạy model sau này |
-|---|---|---|
-| GOUT_ST_001__T1 | Câu hỏi đơn lượt | Lịch sử rỗng |
-| GOUT_MT_001__T1 | Câu mở đầu hội thoại | Lịch sử rỗng của hội thoại mới |
-| GOUT_MT_001__T2 | Câu hỏi tiếp theo | Nhìn thấy câu trả lời thật của MT lượt 1 |
-| GOUT_MT_001__T3 | Câu hỏi thứ ba | Nhìn thấy hai lượt MT trước |
+Trước benchmark chính thức cần chạy alignment với KB và duyệt reference/evidence.
 
-Câu mở đầu ST/MT trùng nhau là có chủ đích. Không lấy câu trả lời ST đưa vào lịch sử MT. Script hiện chỉ đọc câu hỏi, chưa tạo history và chưa gọi model.
+## 5. Cài đặt nhanh
 
-## Mở file nào?
+Python 3.10–3.12 được khuyến nghị.
 
-| File | Để làm gì? |
-|---|---|
-| `docs/LO_TRINH_UNIT.md` | Xem toàn bộ các khối, unit, phụ thuộc và cách nghiệm thu |
-| `unit01_data.py` | Mã nguồn khối A; comment gắn A01–A12 |
-| `data/eval/inputs.jsonl` | 116 case lấy nguyên từ bản dữ liệu v0.2 |
-| `runs/unit01/questions.jsonl` | Bốn lượt câu hỏi sau khi bạn chạy lệnh lưu |
-| `runs/unit01/manifest.json` | Số lượng và checksum đầu vào |
-| `tasks.json` | Danh sách công việc cho chương trình/AI khác đọc |
-| `progress.json` | Đã làm gì và bước nào tiếp theo |
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux/macOS
+source .venv/bin/activate
 
-## Chạy lại hoặc chọn nhóm khác
-
-Để xem lại, chỉ cần `py unit01_data.py`. Nếu muốn lưu một lần chạy mới, chọn thư mục mới:
-
-```powershell
-py unit01_data.py --group-id GOUT_ST_002 --out runs/unit02
+pip install -U pip
+pip install -e ".[eval,dev]"
+cp .env.example .env       # Windows có thể copy thủ công
 ```
 
-Thư mục output đã tồn tại sẽ được báo lỗi để tránh ghi đè. Không cần xóa dữ liệu cũ.
+GPU Colab có thể dùng:
 
-## Các lỗi thường gặp
-
-| Thông báo/tình huống | Cách xử lý |
-|---|---|
-| Không tìm thấy lệnh py | Thử `python --version`; cần cài Python nếu cả hai lệnh đều không có |
-| Không tìm thấy unit01_data.py | Mở Terminal trong thư mục chứa file này |
-| Output đã tồn tại / FileExistsError | Đổi `--out` thành `runs/unit01_lan2` |
-| Báo ground_truth/reference lẫn trong input | Dùng file inputs.jsonl đã tách reference, không trỏ vào test gốc có đáp án |
-| Thiếu single hoặc multi trong nhóm | Kiểm tra nguồn dữ liệu; bản này dành cho bộ ST/MT ghép cặp của bạn |
-
-## Kiểm tra kỹ thuật
-
-```powershell
-py -m unittest discover -s tests -v
+```bash
+pip install -e ".[eval]"
 ```
 
-Bản C03–C04 hiện có **32 kiểm thử kỹ thuật** cho A, B và C01–C04. Chúng kiểm tra cả reset history giữa case, thứ tự `user -> assistant`, không append lượt lỗi và không lấy `ground_truth/reference`. Không có kiểm thử chất lượng y khoa.
+## 6. Kiểm tra foundation trước khi chạy GPU
 
-## Việc tiếp theo
+```bash
+pytest -q
+python scripts/validate_testset.py
+python scripts/create_data_manifests.py
+```
 
-Bước B và C01–C04 đã hoàn tất kỹ thuật. `unit03_chat_engine.py` hiện có `new_history()` và `append_turn(...)`; bằng chứng C04 được tạo từ chính output model thật của C02. Bước tiếp theo là **C05**: đưa history này vào lượt kế tiếp để model thực sự nhìn thấy câu trả lời lượt 1; sau đó **C06** kiểm tra giới hạn độ dài đầu vào.
+## 7. Xây Knowledge Base v1
 
-Nguồn dữ liệu: gói kế thừa v0.2, từ repository `NtQuang-23521287/Large_Language_Models_in_the_Vietnamese_Gout_Domain` tại commit đã kiểm kê `a5a01e5dfb9691a700d69853065765e7fb280e4b` và hai file test 58 mẫu bạn đã cung cấp. File trong gói này không chứa reference hay đáp án. Kiểm tra schema không chứng minh hết mọi khả năng rò rỉ nội dung hoặc trùng ngữ nghĩa.
+```bash
+python scripts/build_kb.py --config configs/rag/rag_v1.yaml
+```
 
+Output mặc định:
 
-## Trạng thái cập nhật 2026-10-04
+```text
+artifacts/kb/gout_kb_v1/
+├── index.faiss
+├── chunks.jsonl
+└── manifest.json
+```
 
-- A01–A12: hoàn tất.
-- B01–B08: inference thật đã có bằng chứng.
-- C01–C07: hoàn tất; C07 đã chạy đủ hội thoại 3 lượt thật.
-- D01–D02: hoàn tất kỹ thuật về source registry/provenance; **clinical review vẫn pending**.
-- Tiếp theo: D03–D04.
+## 8. Align candidate testset với KB
 
-Xem `README_D01_D02.md`.
+Sau khi build KB, xuất gói review để xác nhận mỗi query có được KB hỗ trợ hay cần expected refusal:
+
+```bash
+python scripts/export_kb_alignment_review.py
+```
+
+Chi tiết ở `docs/reference_review.md`. Không chạy Judge/RAGAS như benchmark y khoa chính thức cho tới khi reference/evidence được duyệt.
+
+## 9. Smoke benchmark
+
+Chỉ chạy 2 case đầu với Qwen3 để kiểm tra toàn pipeline:
+
+```bash
+python scripts/run_baseline.py \
+  --model configs/models/qwen3_8b.yaml \
+  --eval configs/evaluation/baseline_v1.yaml \
+  --limit 2 \
+  --no-judge \
+  --no-ragas
+```
+
+Sau smoke test thành công mới chạy full 3 model:
+
+```bash
+python scripts/run_baseline.py --model configs/models/seallms_v3_7b.yaml --eval configs/evaluation/baseline_v1.yaml
+python scripts/run_baseline.py --model configs/models/qwen3_8b.yaml       --eval configs/evaluation/baseline_v1.yaml
+python scripts/run_baseline.py --model configs/models/gemma3_4b.yaml      --eval configs/evaluation/baseline_v1.yaml
+```
+
+Mỗi run sinh một thư mục bất biến trong `artifacts/runs/<run_id>/` với prediction, retrieval trace, config snapshot, manifest và summary.
+
+## 10. MLflow
+
+Mặc định dùng local store:
+
+```bash
+mlflow ui --backend-store-uri ./mlruns --port 5000
+```
+
+Truy cập `http://127.0.0.1:5000`.
+
+## 11. DVC
+
+Repository có `dvc.yaml` và `params.yaml`. Sau khi copy project vào Git repository:
+
+```bash
+dvc init
+dvc add data/raw/knowledge_base
+dvc add data/raw/testset
+git add .
+git commit -m "chore: initialize llmops foundation"
+```
+
+Không commit `.env`, model weights, FAISS index hoặc run artifacts lớn vào Git.
+
+## 12. Quy tắc benchmark 3 model
+
+Để phép so sánh có giá trị, cả 3 model phải dùng cùng:
+
+- testset version/checksum;
+- KB/index version;
+- retrieval policy và top-k;
+- system prompt;
+- max input/output tokens;
+- seed/decoding policy;
+- rubric/judge version.
+
+Khác biệt chính ở baseline selection chỉ nên là **model config**.
+
+## 13. Chưa nên làm ngay
+
+Không chọn Best Model từ smoke run; không train SFT/DPO trước khi baseline protocol được khóa; không gọi candidate testset là gold set khi chưa review; không dùng reference để truy xuất; không chỉnh config giữa ba model mà không version thành experiment mới.

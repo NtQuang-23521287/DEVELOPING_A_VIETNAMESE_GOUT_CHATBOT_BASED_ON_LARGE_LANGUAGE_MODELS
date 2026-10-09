@@ -1,0 +1,49 @@
+name: baseline_selection_v1
+phase: baseline_model_selection
+seed: 2026
+
+testset:
+  path: data/raw/testset/Group3_Testset_cases_v02.jsonl
+  version: group3_candidate_v02
+  allowed_reference_status:
+    - pending_kb_alignment
+
+rag:
+  config: configs/rag/rag_v1.yaml
+  index_dir: artifacts/kb/gout_kb_v1
+
+prompt:
+  system: prompts/system_vi_v1.txt
+  version: system_vi_v1
+
+conversation:
+  max_history_pairs: 2
+  reset_between_cases: true
+
+input:
+  max_input_tokens: 4096
+  overflow_policy: error
+
+generation:
+  max_new_tokens: 512
+
+judge:
+  enabled: false
+  provider: openai
+  model: gpt-5.6
+  rubric: rubrics/medical_9_metrics.yaml
+  prompt: prompts/judge_vi_v1.txt
+
+ragas:
+  enabled: false
+  metrics:
+    - faithfulness
+    - context_recall
+
+tracking:
+  mlflow_enabled: true
+  tracking_uri: file:./mlruns
+  experiment_name: gout_baseline_selection
+
+output:
+  root: artifacts/runs

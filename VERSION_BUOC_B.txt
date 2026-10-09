@@ -1,3 +1,0 @@
-Ban dong goi v02 - buoc B, 2026-10-04.
-Co unit02_model.py, configs/unit02_hf.json va README_BUOC_B.md.
-Thu muc goc giu gout_units_v01 de tuong thich notebook Colab da gui.

@@ -1,5 +1,0 @@
-Gout_Streamlit_NoRAG_v09
-Prototype UI/API before RAG
-Architecture: Streamlit -> FastAPI -> ChatService -> ChatEngine C01-C07 -> Qwen
-RAG: disabled
-Official H04-H06 completion: false (prototype only)

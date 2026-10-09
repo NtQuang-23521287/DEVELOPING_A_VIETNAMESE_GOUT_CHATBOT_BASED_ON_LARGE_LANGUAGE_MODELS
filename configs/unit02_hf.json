@@ -1,8 +1,0 @@
-{
-  "model": "Qwen/Qwen2.5-1.5B-Instruct",
-  "revision": "main",
-  "device": "auto",
-  "max_input_tokens": 2048,
-  "max_new_tokens": 384,
-  "seed": 2026
-}

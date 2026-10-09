@@ -1,0 +1,419 @@
+{
+  "project": "Gout_LLMOps_v1",
+  "version": "0.1.0",
+  "file_count": 104,
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 233
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 311
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 529
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "bytes": 152
+    },
+    {
+      "path": "MIGRATION_FROM_OLD_REPO.md",
+      "bytes": 889
+    },
+    {
+      "path": "Makefile",
+      "bytes": 535
+    },
+    {
+      "path": "README.md",
+      "bytes": 6451
+    },
+    {
+      "path": "artifacts/kb/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/reports/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/runs/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "configs/evaluation/baseline_v1.yaml",
+      "bytes": 879
+    },
+    {
+      "path": "configs/evaluation/heuristic_reward_v1.yaml",
+      "bytes": 331
+    },
+    {
+      "path": "configs/models/gemma3_4b.yaml",
+      "bytes": 330
+    },
+    {
+      "path": "configs/models/qwen3_8b.yaml",
+      "bytes": 343
+    },
+    {
+      "path": "configs/models/seallms_v3_7b.yaml",
+      "bytes": 339
+    },
+    {
+      "path": "configs/rag/rag_v1.yaml",
+      "bytes": 945
+    },
+    {
+      "path": "configs/safety/safe_inference_v1.yaml",
+      "bytes": 215
+    },
+    {
+      "path": "configs/training/dpo_v1.yaml",
+      "bytes": 394
+    },
+    {
+      "path": "configs/training/sft_v1.yaml",
+      "bytes": 406
+    },
+    {
+      "path": "data/README.md",
+      "bytes": 480
+    },
+    {
+      "path": "data/interim/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "data/manifests/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "data/manifests/kb_raw_manifest.json",
+      "bytes": 391
+    },
+    {
+      "path": "data/manifests/testset_raw_manifest.json",
+      "bytes": 752
+    },
+    {
+      "path": "data/processed/.gitkeep",
+      "bytes": 0
+    },
+    {
+      "path": "data/raw/knowledge_base/Group1_RAG_Corpus.csv",
+      "bytes": 1272131
+    },
+    {
+      "path": "data/raw/knowledge_base/gout_guideline_1.pdf",
+      "bytes": 193085
+    },
+    {
+      "path": "data/raw/testset/Group3_Testset_candidate_v02.csv",
+      "bytes": 28339
+    },
+    {
+      "path": "data/raw/testset/Group3_Testset_cases_v02.jsonl",
+      "bytes": 36499
+    },
+    {
+      "path": "data/raw/testset/Group3_Testset_conversion_audit_v01.csv",
+      "bytes": 87863
+    },
+    {
+      "path": "data/raw/testset/Group3_Testset_conversion_report_v02.txt",
+      "bytes": 1439
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 1323
+    },
+    {
+      "path": "docs/data_versioning.md",
+      "bytes": 716
+    },
+    {
+      "path": "docs/evaluation_protocol.md",
+      "bytes": 1325
+    },
+    {
+      "path": "docs/phase_mapping.md",
+      "bytes": 992
+    },
+    {
+      "path": "docs/reference_review.md",
+      "bytes": 793
+    },
+    {
+      "path": "dvc.yaml",
+      "bytes": 864
+    },
+    {
+      "path": "notebooks/02_baseline_benchmark_colab.ipynb",
+      "bytes": 1461
+    },
+    {
+      "path": "notebooks/README.md",
+      "bytes": 336
+    },
+    {
+      "path": "params.yaml",
+      "bytes": 165
+    },
+    {
+      "path": "prompts/judge_vi_v1.txt",
+      "bytes": 454
+    },
+    {
+      "path": "prompts/system_vi_v1.txt",
+      "bytes": 759
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 1696
+    },
+    {
+      "path": "requirements/base.txt",
+      "bytes": 5
+    },
+    {
+      "path": "requirements/dev.txt",
+      "bytes": 10
+    },
+    {
+      "path": "requirements/eval.txt",
+      "bytes": 11
+    },
+    {
+      "path": "requirements/serve.txt",
+      "bytes": 12
+    },
+    {
+      "path": "requirements/train.txt",
+      "bytes": 12
+    },
+    {
+      "path": "rubrics/medical_9_metrics.yaml",
+      "bytes": 1489
+    },
+    {
+      "path": "scripts/build_kb.py",
+      "bytes": 703
+    },
+    {
+      "path": "scripts/compare_runs.py",
+      "bytes": 588
+    },
+    {
+      "path": "scripts/create_data_manifests.py",
+      "bytes": 560
+    },
+    {
+      "path": "scripts/export_kb_alignment_review.py",
+      "bytes": 1515
+    },
+    {
+      "path": "scripts/run_baseline.py",
+      "bytes": 729
+    },
+    {
+      "path": "scripts/serve_api.py",
+      "bytes": 233
+    },
+    {
+      "path": "scripts/train_dpo.py",
+      "bytes": 309
+    },
+    {
+      "path": "scripts/train_sft.py",
+      "bytes": 309
+    },
+    {
+      "path": "scripts/validate_testset.py",
+      "bytes": 871
+    },
+    {
+      "path": "src/gout_llmops/__init__.py",
+      "bytes": 49
+    },
+    {
+      "path": "src/gout_llmops/chat/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/chat/engine.py",
+      "bytes": 1474
+    },
+    {
+      "path": "src/gout_llmops/chat/history.py",
+      "bytes": 603
+    },
+    {
+      "path": "src/gout_llmops/chat/prompt_builder.py",
+      "bytes": 967
+    },
+    {
+      "path": "src/gout_llmops/core/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/core/config.py",
+      "bytes": 387
+    },
+    {
+      "path": "src/gout_llmops/core/hashing.py",
+      "bytes": 419
+    },
+    {
+      "path": "src/gout_llmops/core/io.py",
+      "bytes": 1176
+    },
+    {
+      "path": "src/gout_llmops/core/run_context.py",
+      "bytes": 937
+    },
+    {
+      "path": "src/gout_llmops/data/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/data/manifest.py",
+      "bytes": 788
+    },
+    {
+      "path": "src/gout_llmops/data/testset.py",
+      "bytes": 2152
+    },
+    {
+      "path": "src/gout_llmops/evaluation/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/evaluation/heuristic_reward.py",
+      "bytes": 1285
+    },
+    {
+      "path": "src/gout_llmops/evaluation/judge.py",
+      "bytes": 1831
+    },
+    {
+      "path": "src/gout_llmops/evaluation/metrics.py",
+      "bytes": 1124
+    },
+    {
+      "path": "src/gout_llmops/evaluation/ragas_eval.py",
+      "bytes": 403
+    },
+    {
+      "path": "src/gout_llmops/evaluation/references.py",
+      "bytes": 575
+    },
+    {
+      "path": "src/gout_llmops/evaluation/runner.py",
+      "bytes": 6682
+    },
+    {
+      "path": "src/gout_llmops/models/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/models/base.py",
+      "bytes": 273
+    },
+    {
+      "path": "src/gout_llmops/models/hf_backend.py",
+      "bytes": 3396
+    },
+    {
+      "path": "src/gout_llmops/models/registry.py",
+      "bytes": 319
+    },
+    {
+      "path": "src/gout_llmops/rag/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/rag/chunking.py",
+      "bytes": 1489
+    },
+    {
+      "path": "src/gout_llmops/rag/documents.py",
+      "bytes": 2794
+    },
+    {
+      "path": "src/gout_llmops/rag/index.py",
+      "bytes": 2067
+    },
+    {
+      "path": "src/gout_llmops/rag/retriever.py",
+      "bytes": 2395
+    },
+    {
+      "path": "src/gout_llmops/safety/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/safety/refusal.py",
+      "bytes": 259
+    },
+    {
+      "path": "src/gout_llmops/safety/uncertainty.py",
+      "bytes": 318
+    },
+    {
+      "path": "src/gout_llmops/serving/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/serving/api.py",
+      "bytes": 246
+    },
+    {
+      "path": "src/gout_llmops/tracking/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/tracking/mlflow_tracker.py",
+      "bytes": 619
+    },
+    {
+      "path": "src/gout_llmops/training/__init__.py",
+      "bytes": 0
+    },
+    {
+      "path": "src/gout_llmops/training/dpo.py",
+      "bytes": 299
+    },
+    {
+      "path": "src/gout_llmops/training/sft.py",
+      "bytes": 352
+    },
+    {
+      "path": "tests/test_chat_engine.py",
+      "bytes": 705
+    },
+    {
+      "path": "tests/test_chunking.py",
+      "bytes": 591
+    },
+    {
+      "path": "tests/test_config.py",
+      "bytes": 335
+    },
+    {
+      "path": "tests/test_heuristic_reward.py",
+      "bytes": 631
+    },
+    {
+      "path": "tests/test_history.py",
+      "bytes": 320
+    },
+    {
+      "path": "tests/test_testset.py",
+      "bytes": 411
+    }
+  ]
+}

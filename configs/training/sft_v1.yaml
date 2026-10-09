@@ -1,0 +1,19 @@
+name: sft_v1
+status: scaffold
+base_model_config: configs/models/qwen3_8b.yaml
+method: qlora
+seed: 2026
+training_data: data/processed/sft/sft_v1.jsonl
+output_dir: checkpoints/sft_v1
+qlora:
+  bits: 4
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: auto
+trainer:
+  learning_rate: 0.0002
+  num_train_epochs: 2
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
+  bf16: true

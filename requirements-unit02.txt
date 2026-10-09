@@ -1,3 +1,0 @@
-# PyTorch được cung cấp sẵn trên Colab. Trên máy riêng, cài torch phù hợp CPU/CUDA trước.
-# Đây là phiên bản dùng cho mã mẫu; chưa xác nhận suy luận thật trong môi trường tạo gói.
-transformers==4.57.1

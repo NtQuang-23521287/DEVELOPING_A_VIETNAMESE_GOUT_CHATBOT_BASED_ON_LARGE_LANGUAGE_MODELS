@@ -1,0 +1,10 @@
+name: safe_inference_v1
+status: scaffold
+uncertainty:
+  method: mc_dropout
+  threshold: null
+  calibration_required: true
+refusal:
+  out_of_scope: true
+  dangerous_self_medication: true
+  diagnostic_certainty: true

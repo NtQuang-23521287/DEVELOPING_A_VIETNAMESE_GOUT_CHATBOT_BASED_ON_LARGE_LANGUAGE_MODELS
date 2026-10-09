@@ -1,0 +1,33 @@
+stages:
+  manifests:
+    cmd: python scripts/create_data_manifests.py
+    deps:
+      - data/raw/knowledge_base
+      - data/raw/testset
+      - scripts/create_data_manifests.py
+    outs:
+      - data/manifests/kb_raw_manifest.json
+      - data/manifests/testset_raw_manifest.json
+
+  validate_testset:
+    cmd: python scripts/validate_testset.py
+    deps:
+      - data/raw/testset/Group3_Testset_cases_v02.jsonl
+      - scripts/validate_testset.py
+    metrics:
+      - artifacts/reports/testset_validation.json:
+          cache: false
+
+  build_kb:
+    cmd: python scripts/build_kb.py --config configs/rag/rag_v1.yaml
+    deps:
+      - data/raw/knowledge_base
+      - configs/rag/rag_v1.yaml
+      - src/gout_llmops/rag
+    params:
+      - rag.chunk_chars
+      - rag.chunk_overlap
+      - rag.retrieve_k
+      - rag.top_k
+    outs:
+      - artifacts/kb/gout_kb_v1

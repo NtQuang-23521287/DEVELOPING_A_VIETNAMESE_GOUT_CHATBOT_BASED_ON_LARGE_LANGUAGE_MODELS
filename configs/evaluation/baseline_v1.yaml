@@ -3,7 +3,7 @@ phase: baseline_model_selection
 seed: 2026
 
 testset:
-  path: data/raw/testset/Group3_Testset_cases_v02.jsonl
+  path: data/data_filtered_final/Group3_Testset_cases_v02.jsonl
   version: group3_candidate_v02
   allowed_reference_status:
     - pending_kb_alignment
@@ -30,7 +30,7 @@ generation:
 judge:
   enabled: false
   provider: openai
-  model: gpt-5.6
+  model: gpt-4o-mini
   rubric: rubrics/medical_9_metrics.yaml
   prompt: prompts/judge_vi_v1.txt
 

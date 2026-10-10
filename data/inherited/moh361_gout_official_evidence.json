@@ -1,0 +1,18 @@
+{
+  "schema_version": "source_provenance_0.1",
+  "source_id": "SRC_MOH_VN_361_QD_BYT_GOUT",
+  "local_asset_filename": "gout_guideline_1.pdf",
+  "document_title": "Hướng dẫn chẩn đoán và điều trị các bệnh cơ xương khớp — phần BỆNH GÚT (gout)",
+  "decision_number": "361/QĐ-BYT",
+  "issuing_body": "Bộ Y tế Việt Nam",
+  "decision_date": "2014-01-25",
+  "official_page": "https://kcb.vn/van-ban/huong-dan-chan-doan-va-dieu-tri-cac-benh-co-xuong-khop.html",
+  "secondary_legal_verification": "https://thuvienphapluat.vn/van-ban/the-thao-y-te/quyet-dinh-361-qd-byt-2014-tai-lieu-chuyen-mon-huong-dan-chan-doan-dieu-tri-cac-benh-co-xuong-khop-272000.aspx",
+  "verification_scope": "document identity/provenance only",
+  "currentness_claimed": false,
+  "notes": [
+    "PDF metadata title is 361/QĐ-BYT.",
+    "The uploaded six-page gout text matches the published gout section of Decision 361/QĐ-BYT.",
+    "Acceptance as the project knowledge base does not assert that every 2014 recommendation is the newest clinical practice in 2026."
+  ]
+}

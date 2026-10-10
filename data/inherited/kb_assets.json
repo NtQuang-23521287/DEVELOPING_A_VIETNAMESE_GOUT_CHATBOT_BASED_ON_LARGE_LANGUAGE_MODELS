@@ -1,0 +1,79 @@
+[
+  {
+    "path": "data/kb/chunks/doc003_chunks.jsonl",
+    "sha256": "d89b9f605f98264108b388645c7d53576f0bb54fb94a2fb5cc64cbeb529411b9",
+    "bytes": 82975,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending",
+    "records": 46,
+    "source_counts": {
+      "ACR2020_Gout_Guideline_VN": 46
+    }
+  },
+  {
+    "path": "data/kb/chunks/kb_chunks.jsonl",
+    "sha256": "8d9f2bb4ace782ac44a88e5ab2535cc7dae71884ac400d22dac7db1be9b8b90e",
+    "bytes": 39691,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending",
+    "records": 40,
+    "source_counts": {
+      "gout_guideline_1.pdf": 20,
+      "gout_guideline_2.pdf": 20
+    }
+  },
+  {
+    "path": "data/kb/raw_docs/Guideline_ACR_2020.txt",
+    "sha256": "08dd485d3c6e844db96188692594099ef5b9e92e083877d654309db0456eb847",
+    "bytes": 11675,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "data/kb/raw_docs/Phac_do_Cho_Ray.txt",
+    "sha256": "687df7c4d5676062fd7b33cd414356dd51e92e99d8fcbe31045fb3ba37bf1b27",
+    "bytes": 14618,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "data/kb/raw_docs/QD_361_BYT.txt",
+    "sha256": "3633ae87b83004e4d5e8de0dbecee5ff286bb2fdcbe511a6f0cbdb2a31dac9e7",
+    "bytes": 14541,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "data/kb/raw_docs/gout_guideline_1.pdf",
+    "sha256": "763fd9a729ab5beccf81eb78d083fcf292ff9cbc1bf620d099529ac7a5c478ca",
+    "bytes": 193085,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "data/kb/raw_docs/gout_guideline_2.pdf",
+    "sha256": "2f55d556023c32f46d0f92265c2210ee3c505f981bf9059bd0aa645a2ae6811f",
+    "bytes": 128165,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "indexes/gout_kb_v1/index.faiss",
+    "sha256": "24c6c48da7fe72152b9b96759ba51270f257c35d7bf394204ee401d0b04b3528",
+    "bytes": 61485,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending"
+  },
+  {
+    "path": "indexes/gout_kb_v1/metadata.jsonl",
+    "sha256": "8d9f2bb4ace782ac44a88e5ab2535cc7dae71884ac400d22dac7db1be9b8b90e",
+    "bytes": 39691,
+    "original_publisher_verified": false,
+    "clinical_review_status": "pending",
+    "records": 40,
+    "source_counts": {
+      "gout_guideline_1.pdf": 20,
+      "gout_guideline_2.pdf": 20
+    }
+  }
+]

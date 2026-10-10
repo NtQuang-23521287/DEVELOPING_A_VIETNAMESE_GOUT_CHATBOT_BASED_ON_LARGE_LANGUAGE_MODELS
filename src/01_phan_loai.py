@@ -1,25 +1,3 @@
-"""
-BƯỚC 1 — Phân loại dữ liệu thành 3 nhóm: RAG / SFT Seed / Test Cases.
-
-ĐÃ SỬA so với bản trước:
-  1. find_file() giờ khớp đúng TÊN FILE THẬT tải từ HuggingFace (không có tiền tố "gout_"
-     — tiền tố đó chỉ có nếu bạn đã chạy qua một bước lọc thủ công trước đó).
-  2. Hỗ trợ đọc cả .csv LẪN .parquet (tự nhận diện theo đuôi file) — trước đây chỉ đọc .csv.
-  3. Khớp đúng cấu trúc cột thật của từng file (đã kiểm tra trực tiếp):
-       - vinmec_article_content-...parquet   -> cột: title, content, url
-       - medical_qa-...parquet               -> cột: title, content, url  (title = câu hỏi, content = câu trả lời)
-       - train-00000-of-00001.parquet         -> cột: answer, question
-       - full-...parquet                      -> cột: url, title, content (nguồn RAG bổ sung, tùy chọn)
-
-LƯU Ý: File "gout_train_2" (hội thoại tổng hợp do AI sinh, dùng cho Nhóm 3 - Test Cases)
-CHƯA có trong danh sách file bạn tải — nếu chưa tìm được, script vẫn chạy bình thường cho
-Nhóm 1 và Nhóm 2, chỉ báo thiếu Nhóm 3 (không phải lỗi, có thể bổ sung sau).
-
-OUTPUT:
-  data_filtered_final/Group1_RAG_Corpus.csv   — cột: title, content, ...
-  data_filtered_final/Group2_SFT_Seed_QA.csv  — cột: question, content
-  data_filtered_final/Group3_Test_Queries.csv — cột: target_disease, test_query (nếu có file gout_train_2)
-"""
 import pandas as pd
 import re
 import os
@@ -46,12 +24,49 @@ def read_any(path):
         return pd.read_parquet(path)
     return pd.read_csv(path)
 
-# Hàm tìm file bất chấp có đuôi .csv hay .parquet, khớp đúng tên gốc tải từ HuggingFace
-# (không giả định có tiền tố "gout_" — nếu bạn có file đã đổi tên thêm "gout_" từ trước,
-# hàm này vẫn tìm được vì chỉ cần chứa đúng từ khóa ở đâu đó trong tên file).
 def find_file(keyword):
     files = glob.glob(f"*{keyword}*.csv") + glob.glob(f"*{keyword}*.parquet")
     return files[0] if files else None
+
+# Đã vá lỗi và thiết kế lại hàm bóc tách an toàn tuyệt đối
+def extract_first_user_query(messages_str):
+    if pd.isna(messages_str): return ""
+    text = str(messages_str)
+    messages = []
+
+    try:
+        messages = json.loads(text)
+    except:
+        try:
+            messages = ast.literal_eval(text)
+        except:
+            pass
+
+    query = ""
+
+    if isinstance(messages, list):
+        for msg in messages:
+            if isinstance(msg, dict):
+                role = msg.get('role', msg.get('from', ''))
+                if role in ['user', 'human']:
+                    query = str(msg.get('content', msg.get('value', '')))
+                    break
+
+    if not query:
+        blocks = re.findall(r'\{[^{}]+\}', text)
+        for block in blocks:
+            if any(k in block.lower() for k in ["'user'", '"user"', "'human'", '"human"']):
+                match = re.search(r"['\"](?:content|value)['\"]\s*:\s*(['\"])(.*?)\1(?:\s*[,}])", block, re.DOTALL | re.IGNORECASE)
+                if match:
+                    query = match.group(2)
+                    break
+
+    if query:
+        # Xóa sạch suy nghĩ của AI nếu bị dính vào
+        query = re.sub(r"<think>.*?</think>", "", query, flags=re.DOTALL)
+        query = query.strip()
+
+    return query
 
 # =====================================================================
 # NHÓM 1: NGỮ LIỆU RAG
@@ -120,24 +135,6 @@ if file_synthetic:
     if 'patient_persona' in df_syn_gout.columns:
         df_syn_gout = df_syn_gout.drop(columns=['patient_persona'])
 
-    def extract_first_user_query(messages_str):
-        if pd.isna(messages_str): return ""
-        text = str(messages_str)
-        try: messages = json.loads(text.replace("'", '"'))
-        except:
-            try: messages = ast.literal_eval(text)
-            except: messages = []
-
-        if isinstance(messages, list):
-            for msg in messages:
-                if isinstance(msg, dict):
-                    if msg.get('role') == 'user': return str(msg.get('content', ''))
-                    if msg.get('from') in ['human', 'user']: return str(msg.get('value', ''))
-
-        match = re.search(r"('role':\s*'user'|\"role\":\s*\"user\"|'from':\s*'human').*?('content':\s*'|\"content\":\s*\"|'value':\s*')(.*?)(?='}*|\"}*)", text, re.DOTALL | re.IGNORECASE)
-        if match: return match.group(3)
-        return ""
-
     df_syn_gout['test_query'] = df_syn_gout['messages'].apply(extract_first_user_query)
     df_test_cases = df_syn_gout[df_syn_gout['test_query'].str.strip().str.len() > 0][['target_disease', 'test_query']]
 
@@ -146,7 +143,5 @@ if file_synthetic:
     print(f" -> Đã trích xuất {len(df_test_cases)} câu hỏi tình huống (Lưu tại: {output_test})")
 else:
     print(" [!] Chưa tìm thấy file hội thoại tổng hợp (train_2) — Nhóm 3 sẽ bổ sung sau.")
-    print("     Đây KHÔNG phải lỗi chặn tiến độ: Nhóm 1 và Nhóm 2 vẫn dùng được để đi tiếp")
-    print("     các bước 2-6. Chỉ cần tìm đúng file trước khi làm Giai đoạn 4 (đánh giá).")
 
 print("\nHOÀN TẤT QUÁ TRÌNH PHÂN LOẠI!")

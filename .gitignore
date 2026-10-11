@@ -23,7 +23,7 @@ mlruns/
 *.log
 
 # Generated artifacts
-artifacts/runs/*
+# artifacts/runs/*
 artifacts/reports/*
 !artifacts/**/.gitkeep
 

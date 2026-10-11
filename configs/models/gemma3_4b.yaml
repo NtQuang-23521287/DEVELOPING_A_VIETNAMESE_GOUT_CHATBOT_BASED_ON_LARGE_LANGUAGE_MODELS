@@ -9,7 +9,7 @@ trust_remote_code: false
 
 quantization:
   mode: nf4
-  compute_dtype: bfloat16
+  compute_dtype: float16
   double_quant: true
 
 generation:

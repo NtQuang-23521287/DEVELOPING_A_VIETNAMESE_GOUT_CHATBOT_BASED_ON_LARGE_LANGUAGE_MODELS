@@ -5,7 +5,7 @@ revision: b968826d9c46dd6066d109eabc6255188de91218
 trust_remote_code: true
 quantization:
   mode: nf4
-  compute_dtype: bfloat16
+  compute_dtype: float16
   double_quant: true
 generation:
   do_sample: false

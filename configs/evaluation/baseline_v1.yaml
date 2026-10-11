@@ -42,7 +42,7 @@ ragas:
 
 tracking:
   mlflow_enabled: true
-  tracking_uri: file:./mlruns
+  tracking_uri: sqlite:///mlflow.db
   experiment_name: gout_baseline_selection
 
 output:

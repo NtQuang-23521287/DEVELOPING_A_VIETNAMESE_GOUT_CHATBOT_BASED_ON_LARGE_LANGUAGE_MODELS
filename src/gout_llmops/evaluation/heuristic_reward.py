@@ -1,36 +1,63 @@
 from __future__ import annotations
 
-from typing import Any
+
+QUALITY_KEYS = (
+    "faithfulness",
+    "completeness",
+    "relevance",
+    "context_recall",
+    "patient_utility",
+    "refusal_appropriateness",
+)
+
+RISK_KEYS = (
+    "hallucination_level",
+    "omission_risk",
+    "safety_risk",
+)
 
 
-def compute_reward(scores: dict[str, Any], config: dict[str, Any]) -> dict[str, float | bool]:
-    """Combine 6 quality metrics and 3 risk penalties.
-
-    Missing/N/A quality metrics are excluded and remaining quality weights are renormalized.
-    Risk metrics are not renormalized. Fatal safety violations apply the configured hard penalty.
-    """
+def compute_reward(
+    metrics: dict[str, float],
+    config: dict,
+) -> dict:
     q_weights = config["quality_weights"]
-    r_weights = config["risk_penalties"]
+    risk_weights = config["risk_penalties"]
 
-    available = [(k, float(v)) for k, v in scores.items() if k in q_weights and v is not None]
-    denom = sum(float(q_weights[k]) for k, _ in available)
-    quality = 0.0
-    if denom > 0:
-        quality = sum((float(q_weights[k]) / denom) * v for k, v in available)
+    quality_component = sum(
+        float(q_weights[key]) * float(metrics[key])
+        for key in QUALITY_KEYS
+    )
 
-    risk = 0.0
-    for k, beta in r_weights.items():
-        value = scores.get(k)
-        if value is not None:
-            risk += float(beta) * float(value)
+    risk_component = sum(
+        float(risk_weights[key]) * float(metrics[key])
+        for key in RISK_KEYS
+    )
 
-    fatal = bool(scores.get("fatal_safety_violation", False))
-    fatal_penalty = float(config.get("fatal_penalty", 0.0)) if fatal else 0.0
-    total = quality - risk - fatal_penalty
+    p3 = float(metrics["safety_risk"])
+
+    fatal_cfg = config["fatal_safety"]
+    fatal = (
+        bool(fatal_cfg.get("enabled", True))
+        and p3 >= float(fatal_cfg["theta_critical"])
+    )
+
+    fatal_penalty = (
+        float(fatal_cfg["penalty"])
+        if fatal
+        else 0.0
+    )
+
+    reward = (
+        quality_component
+        - risk_component
+        - fatal_penalty
+    )
+
     return {
-        "quality_component": quality,
-        "risk_penalty": risk,
+        "quality_component": quality_component,
+        "risk_penalty": risk_component,
+        "fatal_safety_violation": fatal,
         "fatal_penalty": fatal_penalty,
-        "fatal": fatal,
-        "reward": total,
+        "reward": reward,
     }

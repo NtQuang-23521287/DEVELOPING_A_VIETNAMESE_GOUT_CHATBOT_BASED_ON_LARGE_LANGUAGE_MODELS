@@ -4,7 +4,7 @@ from gout_llmops.data.testset import load_cases, summarize_cases
 
 
 def main():
-    path = "data/raw/testset/Group3_Testset_cases_v02.jsonl"
+    path = "data/data_filtered_final/Group3_Testset_cases_v02.jsonl"
     cases = load_cases(path)
     source_ids = [c.source_row_id for c in cases]
     if len(source_ids) != len(set(source_ids)):

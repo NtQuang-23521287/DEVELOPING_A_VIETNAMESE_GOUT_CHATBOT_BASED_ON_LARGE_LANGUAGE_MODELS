@@ -17,8 +17,8 @@ sources:
       url_column: url
 chunking:
   method: char_window_v1
-  chunk_chars: 700
-  overlap: 120
+  chunk_chars: 256
+  overlap: 40
 embedding:
   model_id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
   revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42

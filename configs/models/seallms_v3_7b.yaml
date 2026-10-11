@@ -1,0 +1,15 @@
+name: seallms_v3_7b
+provider: huggingface
+model_id: SeaLLMs/SeaLLMs-v3-7B-Chat
+revision: a9900348910a6d7f611a6859270d6c28da1e0789
+trust_remote_code: true
+quantization:
+  mode: nf4
+  compute_dtype: bfloat16
+  double_quant: true
+generation:
+  do_sample: false
+  temperature: null
+  top_p: null
+  max_new_tokens: 512
+chat_template_kwargs: {}

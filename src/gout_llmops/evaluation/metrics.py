@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Iterable
+from typing import Any
 import numpy as np
 
 
@@ -142,3 +143,107 @@ def safety_risk(srisk: float) -> float:
     Judge chấm Srisk ∈ [0,5].
     """
     return max(0.0, min(1.0, srisk / 5.0))
+
+def aggregate_predictions(
+    records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """
+    Tổng hợp runtime/generation metrics của một baseline run.
+
+    Không liên quan đến 9 medical metrics.
+    9 medical metrics được aggregate riêng trong runner.py.
+    """
+
+    ok_records = [
+        r
+        for r in records
+        if r.get("status") == "ok"
+    ]
+
+    error_records = [
+        r
+        for r in records
+        if r.get("status") == "error"
+    ]
+
+    skipped_records = [
+        r
+        for r in records
+        if str(r.get("status", "")).startswith("skipped")
+    ]
+
+    def collect_float(key: str) -> list[float]:
+        values = []
+
+        for record in ok_records:
+            value = record.get(key)
+
+            if value is not None:
+                values.append(float(value))
+
+        return values
+
+    def mean_or_none(
+        values: list[float],
+    ) -> float | None:
+        if not values:
+            return None
+
+        return sum(values) / len(values)
+
+    latencies = collect_float(
+        "latency_seconds"
+    )
+
+    input_tokens = collect_float(
+        "input_tokens"
+    )
+
+    output_tokens = collect_float(
+        "output_tokens"
+    )
+
+    tokens_per_second = collect_float(
+        "tokens_per_second"
+    )
+
+    peak_vram = collect_float(
+        "peak_vram_mb"
+    )
+
+    total = len(records)
+
+    return {
+        "records": total,
+        "ok": len(ok_records),
+        "errors": len(error_records),
+        "skipped": len(skipped_records),
+
+        "success_rate": (
+            len(ok_records) / total
+            if total
+            else 0.0
+        ),
+
+        "mean_latency_seconds": (
+            mean_or_none(latencies)
+        ),
+
+        "mean_input_tokens": (
+            mean_or_none(input_tokens)
+        ),
+
+        "mean_output_tokens": (
+            mean_or_none(output_tokens)
+        ),
+
+        "mean_tokens_per_second": (
+            mean_or_none(tokens_per_second)
+        ),
+
+        "peak_vram_mb": (
+            max(peak_vram)
+            if peak_vram
+            else None
+        ),
+    }

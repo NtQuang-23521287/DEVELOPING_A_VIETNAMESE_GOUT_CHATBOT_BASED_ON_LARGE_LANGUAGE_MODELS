@@ -36,7 +36,7 @@ data/processed/*
 
 # Model checkpoints
 checkpoints/
-models/
+
 *.safetensors
 *.bin
 *.pt

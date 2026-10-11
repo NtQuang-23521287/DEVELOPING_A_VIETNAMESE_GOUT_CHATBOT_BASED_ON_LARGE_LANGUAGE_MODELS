@@ -24,7 +24,6 @@ mlruns/
 
 # Generated artifacts
 artifacts/runs/*
-artifacts/kb/*
 artifacts/reports/*
 !artifacts/**/.gitkeep
 

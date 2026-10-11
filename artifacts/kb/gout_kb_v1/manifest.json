@@ -1,0 +1,41 @@
+{
+  "name": "gout_kb_v1",
+  "source_inputs": [
+    {
+      "source_id": "local_guidelines_prechunked",
+      "path": "data/kb/chunks/kb_chunks.jsonl",
+      "sha256": "47e2c4c7b1b522742b5ccab24c705fa119cdb1064beef52c534786f48e171563",
+      "tier": "core",
+      "review_status": "reviewed_for_rag_v1"
+    },
+    {
+      "source_id": "acr2020_prechunked",
+      "path": "data/kb/chunks/doc003_chunks.jsonl",
+      "sha256": "2fdfb765273b88f2b1e0ee6ac6d7a113d110bdfbe4d224d8a04a1abf05d6d1de",
+      "tier": "core",
+      "review_status": "reviewed_for_rag_v1"
+    }
+  ],
+  "documents_chunked": 86,
+  "embedding": {
+    "model_id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "normalize_embeddings": true
+  },
+  "chunking": {
+    "method": "prebuilt_jsonl_v1",
+    "expected_chunks": 86
+  },
+  "retrieval": {
+    "retrieve_k": 12,
+    "top_k": 3,
+    "query_policy": "current_question_only"
+  },
+  "reranker": {
+    "enabled": true,
+    "model_id": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+  },
+  "index_sha256": "32ad2550ed9f5a7f0febc5557acfc283d5d09ea5c0caa49600d59ede4178f635",
+  "chunks_sha256": "5b06c642deef9fecc489e1b6d1f7541b1d17991f8ac111f80d4452d4d894d2f8"
+}

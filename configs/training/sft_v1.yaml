@@ -1,10 +1,10 @@
 name: sft_v1
-status: scaffold
+status: active
 base_model_config: configs/models/qwen3_8b.yaml
 method: qlora
 seed: 2026
-training_data: data/processed/sft/sft_v1.jsonl
-output_dir: checkpoints/sft_v1
+training_data: data/sft/gout_sft_dataset.jsonl
+output_dir: artifacts/runs/sft_v1
 qlora:
   bits: 4
   lora_r: 16

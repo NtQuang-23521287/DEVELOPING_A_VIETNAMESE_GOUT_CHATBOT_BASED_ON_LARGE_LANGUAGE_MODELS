@@ -14,7 +14,7 @@ def train_sft(config: dict) -> None:
     
     # 1. Cấu hình Model & LoRA
     max_seq_length = 2048
-    model_name = "unsloth/Qwen-8B-Instruct-bnb-4bit"
+    model_name = "unsloth/Qwen2.5-7B-Instruct-bnb-4bit"
     
     print(f"Đang tải mô hình: {model_name}...")
     model, tokenizer = FastLanguageModel.from_pretrained(

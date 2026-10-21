@@ -1,0 +1,21 @@
+name: gemma3_4b
+provider: huggingface
+backend_type: gemma3_conditional
+
+model_id: google/gemma-3-4b-it
+revision: 093f9f388b31de276ce2de164bdc2081324b9767
+
+trust_remote_code: false
+
+quantization:
+  mode: nf4
+  compute_dtype: float16
+  double_quant: true
+
+generation:
+  do_sample: false
+  temperature: null
+  top_p: null
+  max_new_tokens: 512
+
+chat_template_kwargs: {}

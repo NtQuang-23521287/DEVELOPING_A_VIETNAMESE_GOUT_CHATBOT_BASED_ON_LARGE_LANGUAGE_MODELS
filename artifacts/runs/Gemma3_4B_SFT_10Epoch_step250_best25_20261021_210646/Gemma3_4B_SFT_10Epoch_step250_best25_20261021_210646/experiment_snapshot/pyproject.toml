@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gout-llmops"
+version = "0.1.0"
+description = "LLMOps research pipeline for a Vietnamese Gout RAG chatbot"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "PyYAML>=6.0",
+  "pydantic>=2.7",
+  "python-dotenv>=1.0",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pypdf>=5.0",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+rag = [
+  "sentence-transformers>=3.0",
+  "faiss-cpu>=1.8",
+  "FlagEmbedding>=1.2.11",
+]
+model = [
+  "torch>=2.3",
+  "transformers>=4.51",
+  "accelerate>=1.0",
+  "bitsandbytes>=0.45; platform_system != 'Darwin'",
+  "huggingface-hub>=0.27",
+]
+eval = [
+  "sentence-transformers>=3.0",
+  "faiss-cpu>=1.8",
+  "FlagEmbedding>=1.2.11",
+  "torch>=2.3",
+  "transformers>=4.51",
+  "accelerate>=1.0",
+  "bitsandbytes>=0.45; platform_system != 'Darwin'",
+  "huggingface-hub>=0.27",
+  "mlflow>=2.17",
+  "openai>=1.50",
+  "ragas>=0.2",
+  "datasets>=3.0",
+]
+train = [
+  "torch>=2.3",
+  "transformers>=4.51",
+  "accelerate>=1.0",
+  "bitsandbytes>=0.45; platform_system != 'Darwin'",
+  "huggingface-hub>=0.27",
+  "peft>=0.13",
+  "trl>=0.12",
+]
+serve = [
+  "torch>=2.3",
+  "transformers>=4.51",
+  "accelerate>=1.0",
+  "sentence-transformers>=3.0",
+  "faiss-cpu>=1.8",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "streamlit>=1.39",
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.7",
+  "pre-commit>=4.0",
+  "dvc>=3.55",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

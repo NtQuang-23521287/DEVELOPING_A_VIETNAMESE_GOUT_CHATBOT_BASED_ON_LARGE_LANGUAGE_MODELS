@@ -1,0 +1,174 @@
+{
+  "run_artifacts/tokenizer.model": {
+    "bytes": 4689074,
+    "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c"
+  },
+  "run_artifacts/README.md": {
+    "bytes": 1485,
+    "sha256": "43207f3e8fffa1b3a4b1108aa4367c6082df3b1f9ffe5c448673e3e577720751"
+  },
+  "run_artifacts/tokenizer_config.json": {
+    "bytes": 1155474,
+    "sha256": "481f5969157ef2e6021343f05c8fca89d2661814aaf2086a9a9b1f5f19f4b7cc"
+  },
+  "run_artifacts/chat_template.jinja": {
+    "bytes": 1532,
+    "sha256": "7de1c58e208eda46e9c7f86397df37ec49883aeece39fb961e0a6b24088dd3c4"
+  },
+  "run_artifacts/training_args.bin": {
+    "bytes": 6161,
+    "sha256": "3d5829309bd0239826e33cf2b45d40b8d75a74150c5b5181963e91fb4e51917d"
+  },
+  "run_artifacts/audit_preflight.json": {
+    "bytes": 983,
+    "sha256": "f62901df8786936063233eb2d601b65ff866c33b8978e26165aa18c6b04827fa"
+  },
+  "run_artifacts/adapter_config.json": {
+    "bytes": 1600,
+    "sha256": "7290d72b8ba8fe3c0cdedefea65f7575cd0ba0690ed7c9c553fa9d46d1755395"
+  },
+  "run_artifacts/adapter_model.safetensors": {
+    "bytes": 119280712,
+    "sha256": "28e449e5c7e062d5a54863186f9b77733b3f023573dfcd524ad623df0e96c227"
+  },
+  "run_artifacts/sft_run_metadata.json": {
+    "bytes": 1334,
+    "sha256": "3fcfb604ff5ff4ab82a12e2a5c9070a9b3c59604d9010ac974af91b506b292ef"
+  },
+  "run_artifacts/tokenizer.json": {
+    "bytes": 33384567,
+    "sha256": "daab2354f8a74e70d70b4d1f804939b68a8c9624dd06cb7858e52dd8970e9726"
+  },
+  "run_artifacts/checkpoint-25/trainer_state.json": {
+    "bytes": 5565,
+    "sha256": "84e39e8025c6c6278521fd91facec74867ea2aa5713827654968ff4cde9b5d5c"
+  },
+  "run_artifacts/checkpoint-25/tokenizer.model": {
+    "bytes": 4689074,
+    "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c"
+  },
+  "run_artifacts/checkpoint-25/rng_state.pth": {
+    "bytes": 14645,
+    "sha256": "0a921cc71915b1ef57b7b89533c75eb18a8985f79a07df3f65906e20f229df5a"
+  },
+  "run_artifacts/checkpoint-25/README.md": {
+    "bytes": 5216,
+    "sha256": "52ae2f0902b4600a41ddd001cdfb6084e5a90f8156dff95b6809fb114c96dddb"
+  },
+  "run_artifacts/checkpoint-25/scheduler.pt": {
+    "bytes": 1465,
+    "sha256": "f0bd0b9bbcc9ccbeb3e0e75802433ff6180a8d4a099d5346b731bb88208ef7f1"
+  },
+  "run_artifacts/checkpoint-25/tokenizer_config.json": {
+    "bytes": 1155474,
+    "sha256": "481f5969157ef2e6021343f05c8fca89d2661814aaf2086a9a9b1f5f19f4b7cc"
+  },
+  "run_artifacts/checkpoint-25/chat_template.jinja": {
+    "bytes": 1532,
+    "sha256": "7de1c58e208eda46e9c7f86397df37ec49883aeece39fb961e0a6b24088dd3c4"
+  },
+  "run_artifacts/checkpoint-25/optimizer.pt": {
+    "bytes": 61098453,
+    "sha256": "9a4b8b1bc8a62f07b6eedee4b4576b844040d156388238cdf4dc03390f116209"
+  },
+  "run_artifacts/checkpoint-25/training_args.bin": {
+    "bytes": 6161,
+    "sha256": "3d5829309bd0239826e33cf2b45d40b8d75a74150c5b5181963e91fb4e51917d"
+  },
+  "run_artifacts/checkpoint-25/adapter_config.json": {
+    "bytes": 1600,
+    "sha256": "7290d72b8ba8fe3c0cdedefea65f7575cd0ba0690ed7c9c553fa9d46d1755395"
+  },
+  "run_artifacts/checkpoint-25/adapter_model.safetensors": {
+    "bytes": 119280712,
+    "sha256": "28e449e5c7e062d5a54863186f9b77733b3f023573dfcd524ad623df0e96c227"
+  },
+  "run_artifacts/checkpoint-25/tokenizer.json": {
+    "bytes": 33384567,
+    "sha256": "daab2354f8a74e70d70b4d1f804939b68a8c9624dd06cb7858e52dd8970e9726"
+  },
+  "run_artifacts/checkpoint-250/trainer_state.json": {
+    "bytes": 48306,
+    "sha256": "358c104c4007436f5b6f238829e07f3f9c4a1c5fa8327a2d7ee951e9491cc944"
+  },
+  "run_artifacts/checkpoint-250/tokenizer.model": {
+    "bytes": 4689074,
+    "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c"
+  },
+  "run_artifacts/checkpoint-250/rng_state.pth": {
+    "bytes": 14645,
+    "sha256": "dd4e7737321e98f9024b96c93baf0b1a0c27a931625e870515f2429a68e31df2"
+  },
+  "run_artifacts/checkpoint-250/README.md": {
+    "bytes": 5216,
+    "sha256": "52ae2f0902b4600a41ddd001cdfb6084e5a90f8156dff95b6809fb114c96dddb"
+  },
+  "run_artifacts/checkpoint-250/scheduler.pt": {
+    "bytes": 1465,
+    "sha256": "9e95eee2a573ddd28974abe92c987e2321a0fe3f3a302ea9798d819b323feeff"
+  },
+  "run_artifacts/checkpoint-250/tokenizer_config.json": {
+    "bytes": 1155474,
+    "sha256": "481f5969157ef2e6021343f05c8fca89d2661814aaf2086a9a9b1f5f19f4b7cc"
+  },
+  "run_artifacts/checkpoint-250/chat_template.jinja": {
+    "bytes": 1532,
+    "sha256": "7de1c58e208eda46e9c7f86397df37ec49883aeece39fb961e0a6b24088dd3c4"
+  },
+  "run_artifacts/checkpoint-250/optimizer.pt": {
+    "bytes": 61098453,
+    "sha256": "6af8e8a0b94d86177526f7d46c88b96ebc71e1180d8c454dfe85b6d227889337"
+  },
+  "run_artifacts/checkpoint-250/training_args.bin": {
+    "bytes": 6161,
+    "sha256": "3d5829309bd0239826e33cf2b45d40b8d75a74150c5b5181963e91fb4e51917d"
+  },
+  "run_artifacts/checkpoint-250/adapter_config.json": {
+    "bytes": 1600,
+    "sha256": "7290d72b8ba8fe3c0cdedefea65f7575cd0ba0690ed7c9c553fa9d46d1755395"
+  },
+  "run_artifacts/checkpoint-250/adapter_model.safetensors": {
+    "bytes": 119280712,
+    "sha256": "16d30d34b592bf4a1ffdd09196d3eec6f3cfdc48dc3f6fccfdaaa535c989c81e"
+  },
+  "run_artifacts/checkpoint-250/tokenizer.json": {
+    "bytes": 33384567,
+    "sha256": "daab2354f8a74e70d70b4d1f804939b68a8c9624dd06cb7858e52dd8970e9726"
+  },
+  "experiment_snapshot/configs/training/sft_gemma3_4b.yaml": {
+    "bytes": 652,
+    "sha256": "26fbfd8946a2ee6960130d4ad78ac92475ba450861672bfc2a9a60e64821314a"
+  },
+  "experiment_snapshot/configs/models/gemma3_4b.yaml": {
+    "bytes": 366,
+    "sha256": "f768c3b7e45eb38f0a48bc7472a7995291c6d5a400e27bd99e17aec6444743c8"
+  },
+  "experiment_snapshot/data/sft/train.jsonl": {
+    "bytes": 570231,
+    "sha256": "cb60073c285feb8611622a8610274884f0469afa558c3c6b8f08b147790fab16"
+  },
+  "experiment_snapshot/data/sft/val.jsonl": {
+    "bytes": 79580,
+    "sha256": "4fcfd0251e119fa83ea5195d4e46373853bb3bc45e3faa1cdb898ad3ea7ee03b"
+  },
+  "experiment_snapshot/data/sft/train.jsonl.dvc": {
+    "bytes": 99,
+    "sha256": "186c0bd9c48091e5a0c1c812ceb6d35172db978a11d9d5111bc526480c2215a1"
+  },
+  "experiment_snapshot/data/sft/val.jsonl.dvc": {
+    "bytes": 96,
+    "sha256": "257881bba6389f685f2bdf462e7ba080a3c25227e7b8e2ea79023a0f72541bfe"
+  },
+  "experiment_snapshot/scripts/train_sft.py": {
+    "bytes": 1255,
+    "sha256": "d8928e6ad3c47de77a5967957d9f0ff9674ee3361563282e63368eeab7e5e493"
+  },
+  "experiment_snapshot/src/gout_llmops/training/sft.py": {
+    "bytes": 19611,
+    "sha256": "c9dc3298d8138e1d3f96f25ecf8e91f18ebac5a65f2ba2387748c536ee5c9c99"
+  },
+  "experiment_snapshot/pyproject.toml": {
+    "bytes": 1696,
+    "sha256": "143e0ba594126841d81e03f63a2be95b7be994ada5b8ed3acaa2aaff0c41ca7f"
+  }
+}

@@ -18,13 +18,13 @@ def main():
     g = p.add_mutually_exclusive_group()
     g.add_argument("--preflight-only", action="store_true", help="Audit tokens; no CUDA training")
     g.add_argument("--smoke-test", action="store_true", help="2 GPU steps, no adapter saved")
-    p.add_argument("--allow-draft", action="store_true", help="Explicitly authorize RESEARCH-ONLY full train on unreviewed QA")
+    p.add_argument("--full-test", action="store_true", help="Explicitly authorize RESEARCH-ONLY full train on unreviewed QA")
     args = p.parse_args()
     cfg = args.config or CONFIGS[args.model]
     data = load_yaml(cfg)
     print(f"Using config: {cfg}")
     train_sft(data, preflight_only=args.preflight_only,
-              smoke_test=args.smoke_test, allow_draft=args.allow_draft)
+              smoke_test=args.smoke_test, full_test=args.full_test)
 
 
 if __name__ == "__main__":

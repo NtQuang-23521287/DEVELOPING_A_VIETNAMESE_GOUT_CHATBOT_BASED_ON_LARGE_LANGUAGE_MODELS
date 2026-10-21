@@ -1,0 +1,153 @@
+{
+  "model_family": "qwen3",
+  "model_id": "Qwen/Qwen3-8B",
+  "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "max_seq_length": 2048,
+  "medical_answers_approved": false,
+  "research_only_draft": true,
+  "train_sha256": "59a5d2c3517288ccd3a872047b8e79f70c1c387402e2cea095ca707555621418",
+  "val_sha256": "8cfd5dda720ff36972184fb965b42475ca3cecfc2c12d8ce90d95dcfb3cb670f",
+  "train": {
+    "split": "train",
+    "original_count": 198,
+    "fit_count": 176,
+    "dropped_overlong": 22,
+    "mean_tokens": 923.4,
+    "min_tokens": 94,
+    "max_tokens": 4712,
+    "overlong_rows": [
+      {
+        "row": 37,
+        "tokens": 2242,
+        "question": "thuốc apuric 100 dùng để điều trị bệnh gì?"
+      },
+      {
+        "row": 43,
+        "tokens": 2368,
+        "question": "thuốc gutacin có tác dụng gì trong việc điều trị bệnh gút?"
+      },
+      {
+        "row": 46,
+        "tokens": 3066,
+        "question": "những tác dụng của allopurinol stada 300mg như thế nào?"
+      },
+      {
+        "row": 63,
+        "tokens": 2563,
+        "question": "nếu tôi có tinh thể trong nước tiểu, có thể tôi đang mắc bệnh gút không?"
+      },
+      {
+        "row": 66,
+        "tokens": 2935,
+        "question": "những chỉ định dùng thuốc alloflam 300 là gì?"
+      },
+      {
+        "row": 69,
+        "tokens": 3256,
+        "question": "khi sử dụng colchicine, tôi có thể gặp phải những tác dụng phụ nào trên đường tiêu hóa?"
+      },
+      {
+        "row": 71,
+        "tokens": 3468,
+        "question": "thuốc thioguanine dùng để điều trị bệnh gì?"
+      },
+      {
+        "row": 72,
+        "tokens": 2115,
+        "question": "người bị bệnh gout có ăn được thịt lợn không?"
+      },
+      {
+        "row": 80,
+        "tokens": 2529,
+        "question": "etodax 300 được chỉ định để điều trị bệnh gout không?"
+      },
+      {
+        "row": 89,
+        "tokens": 2204,
+        "question": "làm sao tôi nên hạn chế lượng đường cho con khi con tôi bị bệnh gút?"
+      },
+      {
+        "row": 90,
+        "tokens": 2464,
+        "question": "thuốc vaidilox được dùng để điều trị gì?"
+      },
+      {
+        "row": 91,
+        "tokens": 2418,
+        "question": "những loại thịt nội tạng nào thường được dùng trong chế độ ăn uống của người gút?"
+      },
+      {
+        "row": 92,
+        "tokens": 2357,
+        "question": "liệu tôi nên dùng thuốc sadapron 100mg mỗi ngày bao nhiêu lần?"
+      },
+      {
+        "row": 93,
+        "tokens": 2186,
+        "question": "thuốc katecid dùng để điều trị bệnh gút không?"
+      },
+      {
+        "row": 95,
+        "tokens": 2212,
+        "question": "liều lượng và cách dùng thuốc alloflam 100 là gì?"
+      },
+      {
+        "row": 99,
+        "tokens": 2168,
+        "question": "nên ăn gì để đào thải acid uric trong cơ thể?"
+      },
+      {
+        "row": 109,
+        "tokens": 3402,
+        "question": "những người bị gút có nên sử dụng thuốc cancetil plus không?"
+      },
+      {
+        "row": 112,
+        "tokens": 2347,
+        "question": "thuốc camxicam có tác dụng gì và hoạt chất chính của nó là gì?"
+      },
+      {
+        "row": 115,
+        "tokens": 2228,
+        "question": "tôi cần kiểm tra điều gì để biết mình có mắc bệnh gút hay không?"
+      },
+      {
+        "row": 118,
+        "tokens": 4712,
+        "question": "nếu tôi ăn nhiều thực phẩm giàu purin, có thể dẫn đến bệnh gút không?"
+      },
+      {
+        "row": 121,
+        "tokens": 2747,
+        "question": "những thực phẩm nào nên hạn chế khi mắc bệnh gout?"
+      },
+      {
+        "row": 133,
+        "tokens": 2422,
+        "question": "điều gì sẽ xảy ra nếu tôi không uống thuốc foribat 80 đúng cách?"
+      }
+    ]
+  },
+  "val": {
+    "split": "val",
+    "original_count": 22,
+    "fit_count": 20,
+    "dropped_overlong": 2,
+    "mean_tokens": 999.3,
+    "min_tokens": 71,
+    "max_tokens": 2248,
+    "overlong_rows": [
+      {
+        "row": 13,
+        "tokens": 2120,
+        "question": "như vậy tôi nên uống sadapron 300mg để điều trị bệnh gút?"
+      },
+      {
+        "row": 15,
+        "tokens": 2248,
+        "question": "meyerolac 200 có thể dùng để điều trị các triệu chứng gì?"
+      }
+    ]
+  },
+  "length_policy": "drop"
+}

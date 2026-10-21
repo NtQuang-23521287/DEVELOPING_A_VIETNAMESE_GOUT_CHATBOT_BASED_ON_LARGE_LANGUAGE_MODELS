@@ -1,0 +1,8 @@
+{
+  "status": "BACKUP_VERIFIED",
+  "verified_files": 43,
+  "total_bytes": 737593605,
+  "best_checkpoint_step": 100,
+  "best_eval_loss": 1.5138007402420044,
+  "backup_dir": "/content/drive/MyDrive/KLTN/SFT/Qwen3_8B_SFT_10Epoch_step250_best100_20261021_183918"
+}

@@ -24,7 +24,7 @@ def main():
     data = load_yaml(cfg)
     print(f"Using config: {cfg}")
     train_sft(data, preflight_only=args.preflight_only,
-              smoke_test=args.smoke_test, full_test=args.full_test)
+              smoke_test=args.smoke_test, allow_draft=args.full_test)
 
 
 if __name__ == "__main__":

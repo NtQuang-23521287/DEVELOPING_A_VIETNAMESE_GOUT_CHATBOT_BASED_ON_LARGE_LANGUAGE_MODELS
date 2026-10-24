@@ -1,0 +1,206 @@
+{
+  "labeler": "claude_canonical_v1",
+  "n_labeled": 299,
+  "n_rejected": 17,
+  "agreement_with_gpt": {
+    "question_type": 0.98,
+    "risk_level": 0.92
+  },
+  "distribution": {
+    "question_type": {
+      "clinical_reasoning": 294,
+      "red_flag": 5
+    },
+    "risk_level": {
+      "moderate": 276,
+      "high": 18,
+      "critical": 5
+    },
+    "kb_support": {
+      "supported": 278,
+      "partial": 21
+    }
+  },
+  "intent_counts": {
+    "diag": 278,
+    "other_joint": 90,
+    "diet": 39,
+    "test": 19,
+    "known_dx": 17,
+    "define": 16,
+    "child": 14,
+    "treat": 10,
+    "pseudo": 7,
+    "infant": 5
+  },
+  "disagreements": [
+    {
+      "case_id": "group3_007",
+      "question_type": "red_flag",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "critical",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_052",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_130",
+      "question_type": "red_flag",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "critical",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_039",
+      "question_type": "red_flag",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "critical",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_057",
+      "question_type": "red_flag",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "critical",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_123",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "moderate",
+      "gpt_risk_level": "high"
+    },
+    {
+      "case_id": "group3_279",
+      "question_type": "red_flag",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "critical",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_005",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_210",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "basic_knowledge",
+      "risk_level": "moderate",
+      "gpt_risk_level": "low"
+    },
+    {
+      "case_id": "group3_200",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_043",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_095",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_265",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_122",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_154",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_187",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_272",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_274",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_027",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_080",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_151",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_042",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_192",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    },
+    {
+      "case_id": "group3_215",
+      "question_type": "clinical_reasoning",
+      "gpt_question_type": "clinical_reasoning",
+      "risk_level": "high",
+      "gpt_risk_level": "moderate"
+    }
+  ]
+}

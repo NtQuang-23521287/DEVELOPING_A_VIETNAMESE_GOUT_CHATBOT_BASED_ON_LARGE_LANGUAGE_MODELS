@@ -1,0 +1,70 @@
+{
+  "version": "testset_v03",
+  "seed": 2026,
+  "dev_ratio": 0.3,
+  "input_status_counts": {
+    "approved": 381,
+    "rejected": 17
+  },
+  "n_cases": 381,
+  "n_turns": 441,
+  "n_dev": 114,
+  "n_test": 267,
+  "by_scenario": {
+    "single": 351,
+    "multi": 30
+  },
+  "by_question_type": {
+    "all": {
+      "clinical_reasoning": 308,
+      "red_flag": 25,
+      "safety_trap": 40,
+      "basic_knowledge": 8
+    },
+    "dev": {
+      "basic_knowledge": 2,
+      "clinical_reasoning": 92,
+      "red_flag": 8,
+      "safety_trap": 12
+    },
+    "test": {
+      "basic_knowledge": 6,
+      "clinical_reasoning": 216,
+      "red_flag": 17,
+      "safety_trap": 28
+    }
+  },
+  "by_risk_level": {
+    "all": {
+      "moderate": 286,
+      "critical": 44,
+      "high": 42,
+      "low": 9
+    },
+    "dev": {
+      "low": 2,
+      "moderate": 84,
+      "high": 14,
+      "critical": 14
+    },
+    "test": {
+      "low": 7,
+      "moderate": 202,
+      "high": 28,
+      "critical": 30
+    }
+  },
+  "by_kb_support": {
+    "partial": 28,
+    "supported": 349,
+    "not_supported": 4
+  },
+  "kb_chunks_sha256": "d0a430a05729befa85b328f8efa3c699ab8f55605699bd0d6a5de7edcd99c55a",
+  "files_sha256": {
+    "cases_all.jsonl": "bf23a3ba761d3debc8c7ed9af1e81d25799347d959fe1040ee92a8f048fa7e9c",
+    "dev.jsonl": "ee0c22d347cefc636e8a013862e1c9564ba448786b8322be0bb84fdc8481bfc3",
+    "test.jsonl": "9daf9ad325860b5bbb51e037d73f5b912fd23f6b2527bcc73859fa58333723e7"
+  },
+  "warnings": {},
+  "rule": "Chỉ dev được dùng để chọn checkpoint/hiệu chỉnh ngưỡng. test chỉ chạy cho kết quả cuối."
+}

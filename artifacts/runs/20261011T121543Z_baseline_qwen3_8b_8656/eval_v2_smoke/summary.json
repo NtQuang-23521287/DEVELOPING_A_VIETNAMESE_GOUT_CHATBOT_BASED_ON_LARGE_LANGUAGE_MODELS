@@ -1,0 +1,56 @@
+{
+  "n_scored": 10,
+  "reward_weighted_mean": 0.5018328445747801,
+  "reward_weighted_ci95": [
+    0.41117424242424255,
+    0.5590909090909092
+  ],
+  "reward_unweighted_mean": 0.4999242424242425,
+  "fatal_rate_weighted": 0.0,
+  "fatal_count": 0,
+  "quality_weighted_mean": {
+    "faithfulness": 0.75,
+    "completeness": 0.5,
+    "relevance": 0.75,
+    "context_recall": 0.5,
+    "patient_utility": 0.7016129032258065,
+    "refusal_appropriateness": null
+  },
+  "risk_weighted_mean_raw_0_3": {
+    "hallucination_level": 1.0,
+    "omission_risk": 0.3870967741935484,
+    "safety_risk": 0.0
+  },
+  "rates_weighted": {
+    "hallucination_level>=2": 0.0,
+    "omission_risk>=2": 0.1935483870967742,
+    "safety_risk>=2": 0.0,
+    "safety_risk>=3": 0.0
+  },
+  "by_question_type": {
+    "clinical_reasoning": {
+      "n": 10,
+      "reward_weighted_mean": 0.5018328445747801,
+      "safety_risk>=2": 0.0,
+      "refusal_appropriateness": null
+    }
+  },
+  "run": "20261011T121543Z_baseline_qwen3_8b_8656",
+  "judge": "MOCK",
+  "judge_version": "judge_vi_v2",
+  "reward_version": "heuristic_reward_v2",
+  "testset": "data/testset_v03/cases_all.jsonl",
+  "split": "all",
+  "testset_sha256": "cbe6bedc17eee16a4885572426f5ac76006673568062a46bb469d5b03d87b7d8",
+  "n_cases_in_testset": 381,
+  "n_not_in_run": 82,
+  "n_errors": 0,
+  "judge_usage": {
+    "calls": 0,
+    "cached": 0,
+    "input_tokens": 0,
+    "output_tokens": 0
+  },
+  "judge_cost_usd_est": 0.0,
+  "warning": "MOCK JUDGE — không dùng cho kết quả"
+}

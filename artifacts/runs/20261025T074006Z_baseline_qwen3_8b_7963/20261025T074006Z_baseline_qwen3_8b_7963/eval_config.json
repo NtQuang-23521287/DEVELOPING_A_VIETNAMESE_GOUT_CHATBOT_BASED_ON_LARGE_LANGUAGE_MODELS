@@ -1,12 +1,12 @@
 {
-  "name": "baseline_selection_v1",
+  "name": "baseline_selection_v03_381",
   "phase": "baseline_model_selection",
   "seed": 2026,
   "testset": {
-    "path": "data/data_filtered_final/Group3_Testset_cases_v02.jsonl",
-    "version": "group3_candidate_v02",
+    "path": "data/testset_v03/cases_all.jsonl",
+    "version": "testset_v03",
     "allowed_reference_status": [
-      "pending_kb_alignment"
+      "approved"
     ]
   },
   "rag": {
@@ -33,7 +33,7 @@
     "provider": "openai",
     "model": "gpt-4o-mini",
     "rubric": "rubrics/medical_9_metrics.yaml",
-    "prompt": "prompts/judge_vi_v1.txt"
+    "prompt": "prompts/judge_vi_v2.txt"
   },
   "ragas": {
     "enabled": false,
@@ -43,9 +43,9 @@
     ]
   },
   "tracking": {
-    "mlflow_enabled": true,
+    "mlflow_enabled": false,
     "tracking_uri": "sqlite:///mlflow.db",
-    "experiment_name": "gout_baseline_selection"
+    "experiment_name": "gout_baseline_selection_v03"
   },
   "output": {
     "root": "artifacts/runs"

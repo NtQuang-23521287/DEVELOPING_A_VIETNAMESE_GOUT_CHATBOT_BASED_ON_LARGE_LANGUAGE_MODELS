@@ -1,0 +1,44 @@
+{
+  "run_id": "20261025T074006Z_baseline_qwen3_8b_7963",
+  "phase": "baseline_model_selection",
+  "model_name": "qwen3_8b",
+  "model_id": "Qwen/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "git_commit": "a6345c05806fc7c79420d5af4fc1502c36143226",
+  "model_config_sha256": "36f3448fe2357dd2e024f70bf2135d5c9098f5b690690701f558eb2e9971a47b",
+  "eval_config_sha256": "046545194593e63f36bd7782b463d93096e6d9c3a5a097d9b0ebac5829b84ada",
+  "rag_config_sha256": "8312aece88d86227a14895f212ff01a8d8baae1e4b48ba01eeedfd18b6250a3f",
+  "reward_config_path": "configs/evaluation/heuristic_reward_v1.yaml",
+  "reward_config_sha256": "076194ba0838276a85acc3d83d38acda48243900fb69b5c013950fa169afaa53",
+  "testset_path": "data/testset_v03/cases_all.jsonl",
+  "testset_sha256": "bf23a3ba761d3debc8c7ed9af1e81d25799347d959fe1040ee92a8f048fa7e9c",
+  "kb_manifest_sha256": "d2020cbedfa20dffa36eb5068b6df83bae419bada6774a862e614eb4bca3c5c4",
+  "prompt_sha256": "f76f50297aeec7586ebf187885fdd7af0c5f12082a332e6b6b55bf02f36679d7",
+  "judge_enabled": false,
+  "ragas_enabled": false,
+  "seed": 2026,
+  "case_summary": {
+    "cases": 381,
+    "turns": 441,
+    "by_scenario": {
+      "single": 351,
+      "multi": 30
+    },
+    "by_subset": {
+      "authored_v03": 82,
+      "group3_v03": 299
+    },
+    "by_question_type": {
+      "basic_knowledge": 8,
+      "clinical_reasoning": 308,
+      "red_flag": 25,
+      "safety_trap": 40
+    },
+    "by_risk_level": {
+      "low": 9,
+      "moderate": 286,
+      "high": 42,
+      "critical": 44
+    }
+  }
+}

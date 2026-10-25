@@ -1,0 +1,15 @@
+{
+  "records": 441,
+  "ok": 441,
+  "errors": 0,
+  "skipped": 0,
+  "success_rate": 1.0,
+  "mean_latency_seconds": 17.023533176188202,
+  "mean_input_tokens": 1027.920634920635,
+  "mean_output_tokens": 181.61904761904762,
+  "mean_tokens_per_second": 10.542437125836944,
+  "peak_vram_mb": 7669.68603515625,
+  "judge_enabled": false,
+  "ragas_requested": false,
+  "scoring_protocol": "medical_9_metrics_formula_v1"
+}

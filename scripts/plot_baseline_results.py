@@ -189,7 +189,7 @@ bars = plt.bar(
 
 plt.ylabel("Mean Reward")
 plt.xlabel("Model")
-plt.title("Overall Reward Across 316 Evaluation Cases")
+plt.title("Overall Reward Across 381 Evaluation Cases")
 
 plt.ylim(
     max(0, values.min() - 0.05),

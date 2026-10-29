@@ -1,0 +1,23 @@
+{
+  "split": "all",
+  "cases": 381,
+  "models": {
+    "Qwen3-8B": "20261025T074006Z_baseline_qwen3_8b_7963",
+    "Gemma3-4B": "20261025T080005Z_baseline_gemma3_4b_5283",
+    "SeaLLMs-v3-7B": "20261025T080440Z_baseline_seallms_v3_7b_5915"
+  },
+  "judge": "gpt-4.1-mini",
+  "judge_version": "judge_vi_v2",
+  "reward_version": "heuristic_reward_v2",
+  "testset_sha256": "bf23a3ba761d3debc8c7ed9af1e81d25799347d959fe1040ee92a8f048fa7e9c",
+  "methodology": {
+    "reward": "Risk-level-weighted mean, not simple mean.",
+    "confidence_interval": "For all use original judge summary CI95; for split use 5000 percentile bootstrap resamples (seed 2026).",
+    "quality": "Normalized M=(raw_score-1)/4, risk-weighted.",
+    "risk": "Raw 0..3 risk metric, risk-weighted.",
+    "rates": "Risk-level weighted case rate with threshold.",
+    "latency": "Unweighted mean generation latency per turn from predictions.jsonl (GPU/device-dependent).",
+    "comparison": "Paired bootstrap difference weighted by risk_level, Wilcoxon p unweighted.",
+    "caveat": "Includes data-driven model judge ratings, not clinician-validated medical safety."
+  }
+}

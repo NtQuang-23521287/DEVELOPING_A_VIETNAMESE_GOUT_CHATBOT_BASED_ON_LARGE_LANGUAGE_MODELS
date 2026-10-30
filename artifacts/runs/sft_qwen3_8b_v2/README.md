@@ -1,7 +1,7 @@
 ---
 base_model: Qwen/Qwen3-8B
 library_name: peft
-model_name: sft_qwen3_8b_v2
+model_name: sft_qwen3_8b_lr5e5_10ep
 tags:
 - base_model:adapter:Qwen/Qwen3-8B
 - lora
@@ -13,7 +13,7 @@ licence: license
 pipeline_tag: text-generation
 ---
 
-# Model Card for sft_qwen3_8b_v2
+# Model Card for sft_qwen3_8b_lr5e5_10ep
 
 This model is a fine-tuned version of [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B).
 It has been trained using [TRL](https://github.com/huggingface/trl).

@@ -1,0 +1,37 @@
+{
+  "model_family": "gemma3",
+  "model_id": "google/gemma-3-4b-it",
+  "revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+  "max_seq_length": 2048,
+  "medical_answers_approved": false,
+  "research_only_draft": true,
+  "train_sha256": "cb60073c285feb8611622a8610274884f0469afa558c3c6b8f08b147790fab16",
+  "val_sha256": "4fcfd0251e119fa83ea5195d4e46373853bb3bc45e3faa1cdb898ad3ea7ee03b",
+  "train": {
+    "split": "train",
+    "original_count": 198,
+    "fit_count": 197,
+    "dropped_overlong": 1,
+    "mean_tokens": 614.2,
+    "min_tokens": 84,
+    "max_tokens": 2138,
+    "overlong_rows": [
+      {
+        "row": 95,
+        "tokens": 2138,
+        "question": "liều lượng và cách dùng thuốc alloflam 100 là gì?"
+      }
+    ]
+  },
+  "val": {
+    "split": "val",
+    "original_count": 22,
+    "fit_count": 22,
+    "dropped_overlong": 0,
+    "mean_tokens": 776.4,
+    "min_tokens": 62,
+    "max_tokens": 1942,
+    "overlong_rows": []
+  },
+  "length_policy": "drop"
+}

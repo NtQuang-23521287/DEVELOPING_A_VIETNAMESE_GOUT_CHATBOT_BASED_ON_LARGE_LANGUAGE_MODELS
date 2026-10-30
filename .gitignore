@@ -24,7 +24,7 @@ mlruns/
 
 # Generated artifacts
 # artifacts/runs/*
-artifacts/reports/*
+# artifacts/reports/*
 !artifacts/**/.gitkeep
 
 # Processed/interim data are rebuilt/versioned with DVC

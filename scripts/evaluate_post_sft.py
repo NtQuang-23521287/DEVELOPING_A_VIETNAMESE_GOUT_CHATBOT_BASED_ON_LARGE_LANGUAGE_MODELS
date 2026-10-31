@@ -38,7 +38,7 @@ CONFIG_OUTPUT = ROOT / "artifacts/reports/sft_eval_381/configs"
 MODELS = {
     "qwen3": {
         "model_config": "configs/models/qwen3_8b.yaml",
-        "sft_run": "artifacts/runs/sft_qwen3_8b_lr5e5_10ep",
+        "sft_run": "artifacts/runs/sft_qwen3_8b_v2",
         "family": "qwen3",
         "lr": 5e-5,
         "name": "qwen3_8b_sft_lr5e5",

@@ -36,10 +36,16 @@ data/processed/*
 # Model checkpoints
 checkpoints/
 
-*.safetensors
+# *.safetensors
 *.bin
 *.pt
 *.pth
 
 # DVC cache
 .dvc/cache/
+
+# SFT model weights
+*.safetensors
+*.pt
+*.pth
+*_FULL.zip
